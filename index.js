@@ -11,6 +11,38 @@ app.get('/',function(req,res){
   res.render('home');
 });
 
+app.get('/new_entry', function(req, res){
+  res.render('new_entry');
+});
+
+app.get('/edit_entry', function(req, res){
+  res.render('edit_entry');
+});
+
+app.get('/new_location', function(req, res){
+  res.render('new_location');
+});
+
+app.get('/edit_location', function(req, res){
+  res.render('edit_location');
+});
+
+app.get('/new_country', function(req, res){
+  res.render('new_country');
+});
+
+app.get('/edit_country', function(req, res){
+  res.render('edit_country');
+});
+
+app.get('/new_category', function(req, res){
+  res.render('new_category');
+});
+
+app.get('/edit_category', function(req, res){
+  res.render('edit_category');
+});
+
 app.get('/other-page',function(req,res){
   res.render('other-page');
 });
