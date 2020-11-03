@@ -1,5 +1,14 @@
 <h1>Edit a country here!</h1>
 
+{{!-- TODO: PUT new entries --}}
+<form id="insertForm" action="/">
+    <label for="country_name">Name:</label>
+    <input type="text" name="country_name" placeholder="Country Name" id="country_name" required="required">
+    
+    <br>
+    <input type="submit" value="Add Location" id="add_location_button">
+</form>
+
 {{!-- TODO: Create a good back button --}}
 <form action="/new_location">
     <button>Cancel</button>
