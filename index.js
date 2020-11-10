@@ -47,6 +47,10 @@ app.get('/other-page',function(req,res){
   res.render('other-page');
 });
 
+app.get('/delete_entry', function(req, res){
+  res.render('delete_entry');
+});
+
 
 function genContext(){
   var stuffToDisplay = {};
