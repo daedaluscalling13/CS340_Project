@@ -72,7 +72,7 @@ countryName = `${name_to_be_specified}`,
 WHERE id= `${countryID_to_be_specified}`
 
 -- update a Category based on submission of the Edit Category form 
-UPDATE countries SET
+UPDATE categories SET
 categoryName = `${name_to_be_specified}`,
 WHERE id= `${categoryID_to_be_specified}`
 
