@@ -1,6 +1,6 @@
 CREATE table IF NOT EXISTS categories (
     categoryID INT AUTO_INCREMENT UNIQUE NOT NULL PRIMARY KEY,
-    categoryName VAR_CHAR(64) NOT NULL
+    categoryName VAR_CHAR(64) NOT NULL )
 
 
 
