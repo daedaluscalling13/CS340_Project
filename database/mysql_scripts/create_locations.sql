@@ -1,0 +1,8 @@
+CREATE table IF NOT EXISTS locations(
+    locationID INT AUTO_INCREMENT UNIQUE NOT NULL PRIMARY KEY,
+    name VAR_CHAR(64) NOT NULL,
+    country INT NOT NULL FOREIGN KEY,
+    city VAR_CHAR(64) NOT NULL,
+    state INT NOT NULL FOREIGN KEY,
+    streetAddress VAR_CHAR(64) NOT NULL )
+

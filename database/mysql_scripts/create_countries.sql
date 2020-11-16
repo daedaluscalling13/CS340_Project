@@ -1,0 +1,3 @@
+CREATE table IF NOT EXISTS countries(
+    countryID INT AUTO_INCREMENT UNIQUE NOT NULL PRIMARY KEY,
+    countryName VAR_CHAR(64) NOT NULL,

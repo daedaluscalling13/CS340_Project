@@ -1,0 +1,12 @@
+CREATE table IF NOT EXISTS travelEntries(
+    entryID INT AUTO_INCREMENT UNIQUE NOT NULL PRIMARY KEY,
+    userID INT NOT NULL FOREIGN KEY,
+    experience INT FOREIGN KEY,
+    DOE DATE NOT NULL,
+    timeOfDay TIME NOT NULL,
+    location INT NOT NULL FOREIGN KEY,
+    category INT NOT NULL FOREIGN KEY,
+    title VAR_CHAR(15) NOT NULL,
+    comments VAR_CHAR(65535) NOT NULL,
+    review VAR_CHAR(65535) NOT NULL,
+    groupSize INT NOT NULL )
