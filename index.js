@@ -8,7 +8,30 @@ app.set('view engine', 'handlebars');
 app.set('port', 3000);
 
 app.get('/',function(req,res){
-  res.render('home');
+  travelEntries = {}
+
+  let entryList = Array()
+
+  eventDate = new Date()
+  eventTime = "This is some time.";
+  rome_location = {name: "Rome"};
+  mycategory = {name: "Event"};
+
+  testEntry = {
+    title: "Test Entry",
+    dateOfEvent: eventDate,
+    location: rome_location,
+    category: mycategory,
+    groupSize: 9,
+    comments: "These are some comments",
+    review: "This is a reveiw"
+  };
+
+  entryList.push(testEntry)
+
+  travelEntries.entryList = entryList;
+
+  res.render('home', travelEntries);
 });
 
 app.get('/new_entry', function(req, res){
@@ -45,6 +68,10 @@ app.get('/edit_category', function(req, res){
 
 app.get('/other-page',function(req,res){
   res.render('other-page');
+});
+
+app.get('/delete_entry', function(req, res){
+  res.render('delete_entry');
 });
 
 
