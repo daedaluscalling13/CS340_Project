@@ -1,9 +1,26 @@
 <h1>Welcome to Mike's Travel Blog!</h1>
 
+<p>
+    {{#each entryList}}
+        <div>{{this.title}}</div>
+        <div>{{this.dateOfEvent}}</div>
+        <div>{{this.timeOfDay}}</div>
+        <div>{{this.location.name}}</div>
+        <div>{{this.category.name}}</div>
+        <div>{{this.groupSize}}</div>
+        <div>{{this.comments}}</div>
+        <div>{{this.review}}</div>
+    {{/each}}
+</p>
+
 <form action="/new_entry">
     <button>Add Entry</button>
 </form>
 
 <form action="/edit_entry">
     <button>Edit Entry</button>
+</form>
+
+<form action="/delete_entry">
+    <button>Delete Entry</button>
 </form>

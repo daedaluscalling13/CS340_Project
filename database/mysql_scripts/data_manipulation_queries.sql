@@ -40,44 +40,10 @@ SELECT * FROM countries WHERE countryID=`${countryID_to_be_specified}`
 -- get all the information of a category based on it's id to populate the fields in the Edit Category page
 SELECT * FROM categories WHERE categoryID=`${categoryID_to_be_specified}`
 
---INSERTS
 
--- create a new user
-INSERT INTO users (userID, firstName, lastName, dob) VALUES (
-    `${userID_to_be_specified}`
-    `${user_firstName_to_be_specified}`,
-    `${user_lastName_to_be_specified}`,
-    `${user_dob_to_be_specified}`
-)
--- create a new country
 
-INSERT INTO countries (countryName) VALUES (
-    `${countryName_to_be_specified}`
-)
--- create a new location
-INSERT INTO locations (name, country, city, streetAddress) VALUES (
-    `${locationName_to_be_specified}`,
-    `${countryID_to_be_specified}`,
-    `${cityName_to_be_specified}`,
-    `${streetAddress_to_be_specified}`
+--TODO: Add Inserts here
 
--- create a new category
-
-INSERT INTO categories (categoryName) VALUES (
-    `${categoryName_to_be_specified}`,
-)
--- create a new travel entry
-INSERT INTO travelEntries (userID, DOE, timeOfDay, locationID, category, title, comments, review, groupSize ) VALUES (
-    `${userID_to_be_specified}`,
-    CURRENT_DATE(),
-    `${timeOfDay_to_be_specified}`,
-    `${locationID_to_be_specified}`,
-    `${categoryID_to_be_specified}`,
-    `${title_to_be_specified}`,
-    `${comments_to_be_specified}`,
-    `${review_to_be_specified}`,
-    `${groupSize_to_be_specified}`
-)
 
 
 -- update a TravelEntry based on submission of the Edit TravelEntry form 
