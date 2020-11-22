@@ -1,7 +1,8 @@
+DELIMITER $$
+
 -- create travelEntry function
 CREATE FUNCTION addTravelEntry(
     userID INT,
-    timeOfDay TIME, 
     locationID INT, 
     categoryID INT, 
     title VAR_CHAR(15), 
@@ -18,10 +19,8 @@ BEGIN
     )
     VALUES
     ( -- first row: values for the columns in the list above
-     userID, CURRENT_TIME(), locationID, category, title, comments, review, groupSize
-    ),
-    ( -- second row: values for the columns in the list above
-     Column1_Value, Column2_Value, Column3_Value
-    )
-    -- add more rows here
-    GO
+     userID, CURRENT_DATE(), CURRENT_TIME(), locationID, category, title, comments, review, groupSize
+    );
+    END $$
+
+    DELIMITER ;
