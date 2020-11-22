@@ -2,13 +2,16 @@ var express = require('express');
 
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
-
+const mysql = require('./dbcon.js')
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 3000);
+app.use("/public", express.static('./public/'));
 
 app.get('/',function(req,res){
+
+  
   travelEntries = {}
 
   let entryList = Array()
@@ -75,6 +78,17 @@ app.get('/delete_entry', function(req, res){
   res.render('delete_entry');
 });
 
+const router = express.Router()
+app.use(router);
+router.get('/api', (req, res) => {
+  res.json({info: 'Node.js, Express, MySQl API'})
+})
+
+var db = require('./endpoints.js')
+router.get('/api/entries', db.getEntries)
+router.post('/api/entries', db.createEntry)
+// router.put('/api/entries/:eid', db.updateEntry)
+// router.delete('/api/entries/:eid', db.deleteEntry)
 
 function genContext(){
   var stuffToDisplay = {};

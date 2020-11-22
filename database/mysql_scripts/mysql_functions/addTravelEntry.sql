@@ -3,6 +3,8 @@ DELIMITER $$
 -- create travelEntry function
 CREATE FUNCTION addTravelEntry(
     userID INT,
+    dateOfEvent DATE,
+    timeOfEvent TIME,
     locationID INT, 
     categoryID INT, 
     title VAR_CHAR(15), 
@@ -19,7 +21,7 @@ BEGIN
     )
     VALUES
     ( -- first row: values for the columns in the list above
-     userID, CURRENT_DATE(), CURRENT_TIME(), locationID, category, title, comments, review, groupSize
+     userID, dateOfEven, timeOfEvent, locationID, category, title, comments, review, groupSize
     );
     END $$
 
