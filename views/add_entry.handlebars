@@ -17,12 +17,9 @@
     <label for="location">Location:</label>
     <select name="location" id="location">
         <option value="">--Please choose an option--</option>
-        <option value="Rome">Rome</option>
-        <option value="London">London</option>
-        <option value="New York">New York</option>
-        <option value="Paris">Paris</option>
-        <option value="Tokyo">Tokyo</option>
-        <option value="Cairo">Cairo</option>
+        {{#each locationList}}
+            <option value={{this.locationID}}>{{this.name}}</option>
+        {{/each}}
     </select>
 
     <br>
@@ -54,7 +51,7 @@
     <input type="submit" value="Add Entry" id="add_entry_button">
 </form>
 
-<form action="/new_location">
+<form action="/add_location">
     <button>Add Location</button>
 </form>
 
@@ -62,7 +59,7 @@
     <button>Edit Location</button>
 </form>
 
-<form action="/new_category">
+<form action="/add_category">
     <button>Add Category</button>
 </form>
 

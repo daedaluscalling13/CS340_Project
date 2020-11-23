@@ -1,25 +1,24 @@
 <h1>Add a new location here!</h1>
 
 {{!-- TODO: PUT new entries --}}
-<form id="insertForm" action="/">
+<form id="insertForm" action="/add_location" method="POST">
     <label for="name">Name:</label>
     <input type="text" name="name" placeholder="Location Name" id="name" required="required">
     
     <br>
-    <label for="country">Country:</label>
-    <select name="country" id="country">
+    <label for="countryID">Country:</label>
+    <select name="countryID" id="countryID">
         <option value="">--Please choose an option--</option>
-        <option value="0">France</option>
-        <option value="1">Italy</option>
-        <option value="2">USA</option>
-        <option value="3">Japan</option>
-        <option value="4">Egypt</option>
+        {{#each countryList}}
+        <option value={{this.countryID}}>{{this.countryName}}</option>
+        {{/each}}
     </select>
 
     <br>
     <label for="city">City:</label>
-    <input type="time" name="city" id="city" required="required">
-
+    <input type="text" name="city" id="city" required="required">
+    
+{{!-- Not implemented
     <br>
     <label for="state">State:</label>
     <select name="state" id="state">
@@ -29,7 +28,7 @@
         <option value="wa">Washinton</option>
         <option value="tx">Texas</option>
         <option value="wi">Wisconsin</option>
-    </select>
+    </select> --}}
 
     <br>
     <label for="streetAddress">Street Address:</label>
@@ -40,11 +39,11 @@
 </form>
 
 {{!-- TODO: Create a good back button --}}
-<form action="/new_entry">
+<form action="/add_entry">
     <button>Cancel</button>
 </form>
 
-<form action="/new_country">
+<form action="/add_country">
     <button>Add Country</button>
 </form>
 
