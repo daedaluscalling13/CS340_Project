@@ -32,7 +32,7 @@ WHERE entryID=`${entryID_to_be_specified}`
 -- get all the information of a Location based on it's id to populate the fields in the Edit Location page
 SELECT * FROM locations
 INNER JOIN countries ON locations.countryID = countries.countryID
-WHERE locationID=`${locaitonID_to_be_specified}`
+WHERE locationID=`${locationID_to_be_specified}`
 
 -- get all the information of a country based on it's id to populate the fields in the Edit Country page
 SELECT * FROM countries WHERE countryID=`${countryID_to_be_specified}`
@@ -49,7 +49,7 @@ SELECT * FROM categories WHERE categoryID=`${categoryID_to_be_specified}`
 -- update a TravelEntry based on submission of the Edit TravelEntry form 
 UPDATE TravelEntry SET
 dateOfEntry = `${date_to_be_specified}`,
-timeOfDate = `${time_to_be_specified}`,
+timeOfDay = `${time_to_be_specified}`,
 location = `${locationID_to_be_specified}`,
 category = `${categoryID_to_be_specified}`,
 title = `${title_to_be_specified}`
