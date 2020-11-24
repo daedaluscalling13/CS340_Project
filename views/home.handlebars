@@ -3,24 +3,24 @@
 <p>
     {{#each entryList}}
         <div>{{this.title}}</div>
-        <div>{{this.dateOfEvent}}</div>
+        <div>{{this.DOE}}</div>
         <div>{{this.timeOfDay}}</div>
-        <div>{{this.location.name}}</div>
-        <div>{{this.category.name}}</div>
+        <div>{{this.name}}</div>
+        <div>{{this.categoryName}}</div>
         <div>{{this.groupSize}}</div>
         <div>{{this.comments}}</div>
         <div>{{this.review}}</div>
+
+        <form action="/edit_entry">
+            <button>Edit Entry</button>
+        </form>
+
+        <form action="/delete_entry">
+            <button>Delete Entry</button>
+        </form>
     {{/each}}
 </p>
 
-<form action="/new_entry">
+<form action="/add_entry/">
     <button>Add Entry</button>
-</form>
-
-<form action="/edit_entry">
-    <button>Edit Entry</button>
-</form>
-
-<form action="/delete_entry">
-    <button>Delete Entry</button>
 </form>

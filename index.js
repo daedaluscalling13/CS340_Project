@@ -1,70 +1,60 @@
 var express = require('express');
+const mysql = require('./dbcon.js');
 
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
-const mysql = require('./dbcon.js')
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 3000);
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 app.use("/public", express.static('./public/'));
 
-app.get('/',function(req,res){
+// Routers
+const home = require('./routes/home.js');
+// const add_entry = require('./routes/add_entry.js');
+const add_location = require('./routes/add_location.js');
+const add_country = require('./routes/add_country.js');
+const add_category = require('./routes/add_category.js');
 
-  
-  travelEntries = {}
+app.use('/home', home)
+// app.use('/add_entry', add_entry)
+app.use('/add_location', add_location)
+app.use('/add_country', add_country)
+app.use('/add_category', add_category)
 
-  let entryList = Array()
-
-  eventDate = new Date()
-  eventTime = "This is some time.";
-  rome_location = {name: "Rome"};
-  mycategory = {name: "Event"};
-
-  testEntry = {
-    title: "Test Entry",
-    dateOfEvent: eventDate,
-    location: rome_location,
-    category: mycategory,
-    groupSize: 9,
-    comments: "These are some comments",
-    review: "This is a reveiw"
-  };
-
-  entryList.push(testEntry)
-
-  travelEntries.entryList = entryList;
-
-  res.render('home', travelEntries);
+app.get('/', (req, res) => {
+  res.redirect('/home');
 });
 
-app.get('/new_entry', function(req, res){
-  res.render('new_entry');
+app.get('/add_entry', function(req, res){
+  res.render('add_entry');
 });
 
 app.get('/edit_entry', function(req, res){
   res.render('edit_entry');
 });
 
-app.get('/new_location', function(req, res){
-  res.render('new_location');
-});
+// app.get('/new_location', function(req, res){
+//   res.render('new_location');
+// });
 
 app.get('/edit_location', function(req, res){
   res.render('edit_location');
 });
 
-app.get('/new_country', function(req, res){
-  res.render('new_country');
-});
+// app.get('/new_country', function(req, res){
+//   res.render('new_country');
+// });
 
 app.get('/edit_country', function(req, res){
   res.render('edit_country');
 });
 
-app.get('/new_category', function(req, res){
-  res.render('new_category');
-});
+// app.get('/add_category', function(req, res){
+//   res.render('add_category');
+// });
 
 app.get('/edit_category', function(req, res){
   res.render('edit_category');
@@ -84,9 +74,9 @@ router.get('/api', (req, res) => {
   res.json({info: 'Node.js, Express, MySQl API'})
 })
 
-var db = require('./endpoints.js')
-router.get('/api/entries', db.getEntries)
-router.post('/api/entries', db.createEntry)
+// var db = require('./endpoints.js')
+// router.get('/api/entries', db.getEntries)
+// router.post('/api/entries', db.createEntry)
 // router.put('/api/entries/:eid', db.updateEntry)
 // router.delete('/api/entries/:eid', db.deleteEntry)
 

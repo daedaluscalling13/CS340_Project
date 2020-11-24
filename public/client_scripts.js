@@ -1,9 +1,9 @@
-// $(function(){
-//     Handlebars.registerHelper('link', function(my_link) {
+var source = document.querySelector("#new_entry").innerHTML; 
+var template = Handlebars.compile(source);
+document.body.innerHTML = template();
 
-//         var url = Handlebars.escapeExpression(my_link);
-//         var result = "<a href='" + url + "'></a>";
-//         console.log(result);
+var back_button = document.getElementById("btn_click");
+back_button.addEventListener("click", go_back);
 
 //         return new Handlebars.SafeString(result);
 

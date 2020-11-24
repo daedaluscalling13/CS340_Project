@@ -1,0 +1,15 @@
+<h1>Add a new country here!</h1>
+
+{{!-- TODO: PUT new entries --}}
+<form id="insertForm" action="/add_country" method="POST">
+    <label for="country_name">Name:</label>
+    <input type="text" name="countryName" placeholder="Country Name" id="countryName" required="required">
+    
+    <br>
+    <input type="submit" value="Add Country" id="add_country_button">
+</form>
+
+{{!-- TODO: Create a good back button --}}
+<form action="/add_location">
+    <button>Cancel</button>
+</form>
