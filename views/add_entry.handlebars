@@ -26,11 +26,14 @@
     <label for="category">Category:</label>
     <select name="category" id="category">
         <option value="">--Please choose an option--</option>
-        <option value="restaurant">Restaurant</option>
+        {{#each categoryList}}
+            <option value={{this.categoryID}}>{{this.categoryName}}</option>
+        {{/each}}
+        {{!-- <option value="restaurant">Restaurant</option>
         <option value="bar">Bar</option>
         <option value="attraction">Attraction</option>
         <option value="monument">Monument</option>
-        <option value="festival">Festival</option>
+        <option value="festival">Festival</option> --}}
     </select>
 
     <br>

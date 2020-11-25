@@ -1,5 +1,4 @@
 const mysql = require('../../dbcon.js')
-const categoryController = ('../categories/categories.js')
 
 //---------------------------------------Query Definitions---------------------------------
 const selectLocationsQuery = `SELECT locationID, name FROM locations`
@@ -13,22 +12,28 @@ const insertLocationQuery = `INSERT INTO locations (name, countryID, city, stree
     )`
 
 //---------------------------------------Controllers---------------------------------
-//
-// Promises are hard...
-//
-// exports.get_locations = async(page, req, res, next) =>{
-//     mysql.pool.query(selectLocationsQuery, (err, rows, fields) =>{
-//         try{
-//             var context = {}
-//             context.locationList = rows
-//             next()
-//         } catch (err) {
-//             res.status(400).send({ message: err.message })
-//         }
-//     });
-// }, (req, res) =>{
-//     categoryController.get_categories(page, req, res)
-// }
+
+exports.get_locations = (req, res, context) =>{
+    return new Promise((resolve, reject) => {
+        var promiseInfo = {}
+        promiseInfo.req = req
+        promiseInfo.res = res
+        promiseInfo.context = context
+        try{
+            mysql.pool.query(selectLocationsQuery, (err, rows, fields) =>{
+                try{
+                    promiseInfo.context.locationList = rows
+                    resolve(promiseInfo)
+                } catch (err) {
+                    res.status(400).send({ message: err.message });
+                }
+            });
+        } catch (err){
+            reject('Error: Something went wrong')
+            // res.status(400).send({ message: err.message });
+        }
+    })
+}
 
 exports.add_location = async(req, res) =>{
     var {name, countryID, city, streetAddress} = req.body
