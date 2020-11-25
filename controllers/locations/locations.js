@@ -30,7 +30,6 @@ exports.get_locations = (req, res, context) =>{
             });
         } catch (err){
             reject('Error: Something went wrong')
-            // res.status(400).send({ message: err.message });
         }
     })
 }

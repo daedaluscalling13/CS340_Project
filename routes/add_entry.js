@@ -8,10 +8,8 @@ router.get('/', async (req,res) =>{
     var context = {}
     locationController.get_locations(req, res, context)
     .then((result) => {
-        console.log(result)
         categoryController.get_categories(result.req, result.res, result.context)
         .then((promiseInfo)=> {
-            console.log(promiseInfo.context),
             res.render('add_entry', promiseInfo.context)
         })
         .catch(err => console.log(err));
