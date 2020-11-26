@@ -8,7 +8,12 @@ router.get('/', (req,res) =>{
 });
 
 router.post('/', (req, res) =>{
-    countriesController.insert_country('add_country', req, res);
+    var context = {}
+    countriesController.insert_country(req, res, context)
+    .then((promiseResult)=>{
+        promiseResult.res.render('add_country');
+    })
+    .catch(err => console.log(err));
 });
 
 module.exports = router;
