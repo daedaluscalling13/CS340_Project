@@ -28,33 +28,17 @@ app.get('/', (req, res) => {
   res.redirect('/home');
 });
 
-// app.get('/add_entry', function(req, res){
-//   res.render('add_entry');
-// });
-
 app.get('/edit_entry', function(req, res){
   res.render('edit_entry');
 });
-
-// app.get('/new_location', function(req, res){
-//   res.render('new_location');
-// });
 
 app.get('/edit_location', function(req, res){
   res.render('edit_location');
 });
 
-// app.get('/new_country', function(req, res){
-//   res.render('new_country');
-// });
-
 app.get('/edit_country', function(req, res){
   res.render('edit_country');
 });
-
-// app.get('/add_category', function(req, res){
-//   res.render('add_category');
-// });
 
 app.get('/edit_category', function(req, res){
   res.render('edit_category');
