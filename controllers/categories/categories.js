@@ -35,7 +35,7 @@ exports.get_categories = (req, res, context) =>{
     })
 }
 
-exports.add_category = async(req, res) => {
+exports.add_category = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
             var promiseInfo = {}
