@@ -35,7 +35,7 @@ exports.get_countries = (req, res, context) =>{
     })
 }
 
-exports.add_country = async(req, res) => {
+exports.add_country = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
             var promiseInfo = {}
