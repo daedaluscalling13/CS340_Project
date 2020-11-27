@@ -44,13 +44,15 @@ exports.get_locations = (req, res, context) =>{
     })
 }
 
-exports.add_location = async(req, res) => {
+exports.add_location = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
             var promiseInfo = {}
             promiseInfo.req = req
             promiseInfo.res = res
             promiseInfo.context = context
+
+            console.log(req.body)
 
             var {name, countryID, city, streetAddress} = req.body
             mysql.pool.query(insertLocationQuery, [name, countryID, city, streetAddress], (req, res)=>{
