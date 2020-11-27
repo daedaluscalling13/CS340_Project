@@ -5,7 +5,8 @@ const mysql = require('../../dbcon.js')
 const selectLatestQuery = `SELECT * FROM travelEntries
     JOIN locations ON travelEntries.locationID = locations.locationID
     JOIN categories ON travelEntries.categoryID = categories.categoryID
-    WHERE entryID>=((SELECT MAX(entryID) FROM travelEntries)-5)`
+    WHERE entryID>=((SELECT MAX(entryID) FROM travelEntries)-5)
+    ORDER BY entryID DESC`
 
 // Query to populate the results page
 const selectSearchQuery = `SELECT * FROM travelEntries
@@ -141,7 +142,8 @@ exports.insert_entry = async(req, res, context) => {
             promiseResult.context = context
 
             var {userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize} = req.body;
-            mysql.pool.query(insertEntryQuery, [useuserID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize], (err, rows, fields) => {
+
+            mysql.pool.query(insertEntryQuery, [userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize], (err, rows, fields) => {
                 try {
                     resolve(promiseResult)
                 } catch (err) {

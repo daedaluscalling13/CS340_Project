@@ -16,7 +16,11 @@ router.post('/', async (req, res) =>{
     var context = {}
     entriesController.insert_entry(req, res, context)
     .then((promiseResult)=>{
-        promiseResult.res.redirect('/')
+        entriesController.get_latest_entries(promiseResult.req, promiseResult.res, promiseResult.context)
+        .then((promiseReturns) => {
+            promiseReturns.res.render('home', promiseResult.context)
+        })
+        .catch((err) => console.log(err))
     })
     .catch((err) => console.log(err));
 });
