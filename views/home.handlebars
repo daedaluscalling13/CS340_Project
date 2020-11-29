@@ -1,26 +1,28 @@
-<h1>Welcome to Mike's Travel Blog!</h1>
-
-<p>
-    {{#each entryList}}
-        <div>{{this.title}}</div>
-        <div>{{this.DOE}}</div>
-        <div>{{this.timeOfDay}}</div>
-        <div>{{this.name}}</div>
-        <div>{{this.categoryName}}</div>
-        <div>{{this.groupSize}}</div>
-        <div>{{this.comments}}</div>
-        <div>{{this.review}}</div>
-
-        <form action="/edit_entry">
-            <button>Edit Entry</button>
-        </form>
-
-        <form action="/delete_entry">
-            <button>Delete Entry</button>
-        </form>
-    {{/each}}
-</p>
-
+<br>
 <form action="/add_entry/">
-    <button>Add Entry</button>
+    <button class='btn-primary btn-lg'>Add Entry</button>
 </form>
+<br>
+<div class="container-fluid">
+    <div class ='row'>
+        {{#each entryList}}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Date of Entry: {{this.DOE}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Time of Day: {{this.timeOfDay}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Location Name: {{this.name}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Category: {{this.categoryName}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Group Size: {{this.groupSize}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Comments: {{this.comments}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">Comments: {{this.review}}</h6>
+
+                <a href="/edit_entry" class="card-link">Edit Entry</a>
+                <a href="/delete_entry" class="card-link">Delete Entry</a>
+            </div>
+        </div>
+        {{/each}}
+        
+    </div>
+</div>
+

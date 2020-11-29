@@ -36,9 +36,9 @@ app.get('/edit_entry', function(req, res){
   res.render('edit_entry');
 });
 
-// app.get('/new_location', function(req, res){
-//   res.render('new_location');
-// });
+app.get('/addlocation', function(req, res){
+  res.render('add_location');
+});
 
 app.get('/edit_location', function(req, res){
   res.render('edit_location');
