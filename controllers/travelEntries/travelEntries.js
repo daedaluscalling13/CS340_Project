@@ -157,7 +157,7 @@ exports.insert_entry = async(req, res, context) => {
     });
 }
 
-// UPDATE doesn't have to work yet
+// UPDATE
 exports.update_entry = async(req, res, context) => {
     return new Promise((resolve, reject) =>{
         try{
@@ -180,9 +180,9 @@ exports.update_entry = async(req, res, context) => {
     });
 }
 
-// DELETE doesn't have to work yet
+// DELETE
 //
-exports.delete_entry = async(req, res) => {
+exports.delete_entry = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
             var promiseResult = {}
@@ -190,8 +190,8 @@ exports.delete_entry = async(req, res) => {
             promiseResult.res = res
             promiseResult.context = context
 
-            var {id} = req.body;
-            mysql.pool.query(selectLatestQuery, [id], (err, rows, fields) => {
+            var {entryID} = req.body;
+            mysql.pool.query(deleteEntryQuery, [entryID], (err, rows, fields) => {
                 try {
                     resolve(promiseResult);
                 } catch (err) {

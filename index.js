@@ -57,9 +57,9 @@ app.get('/other-page',function(req,res){
   res.render('other-page');
 });
 
-app.get('/delete_entry', function(req, res){
-  res.render('delete_entry');
-});
+// app.get('/delete_entry', function(req, res){
+//   res.render('delete_entry');
+// });
 
 const router = express.Router()
 app.use(router);
