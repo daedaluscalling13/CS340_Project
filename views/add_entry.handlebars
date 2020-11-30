@@ -1,75 +1,96 @@
-<h1>Add a new entry here!</h1>
+<div id='form-container' class='container'>
+    <h3 style="display:flex;">Add a new entry here!</h3>
 
-{{this.confirm_text}}
+    {{this.confirm_text}}
+    <form id="insertForm" action='/add_entry' method="POST">
+        <input type="hidden" name="userID" value=1 id="userID">
 
-<form id="insertForm" action='/add_entry' method="POST">
+        <div class='form-row'>
 
-    <input type="hidden" name="userID" value=1 id="userID">
+            <div class='form-group col'>
+                <label for="title">Title</label>
+                <input class='form-control' type="text" name="title" placeholder="Entry Title" id="title"
+                    required="required">
+            </div>
+            <br>
 
-    <label for="title">Title:</label>
-    <input type="text" name="title" placeholder="Entry Title" id="title" required="required">
-    
-    <br>
-    <label for="DOE">Date of Entry:</label>
-    <input type="date" name="DOE" placeholder="yyyy-mm-dd" id="DOE" required="required">
+            <div class='form-group col'>
+                <label for="DOE">Date of Entry</label>
+                <input class='form-control' type="date" name="DOE" placeholder="yyyy-mm-dd" id="DOE"
+                    required="required">
+            </div>
+            <br>
 
-    <br>
-    <label for="timeOfDay">Time of Entry:</label>
-    <input type="time" name="timeOfDay" id="timeOfDay" required="required">
+            <div class='form-group col'>
+                <label for="timeOfDay">Time of Entry</label>
+                <input class='form-control' type="time" name="timeOfDay" id="timeOfDay" required="required">
+            </div>
+            <br>
+        </div>
+        <div class='form-row'>
+            <div class='form-group col'>
+                <label for="locationID">Location</label>
+                <select class='form-control' name="locationID" id="locationID">
+                    <option value="">--Please choose an option--</option>
+                    {{#each locationList}}
+                    <option value={{this.locationID}}>{{this.name}}</option>
+                    {{/each}}
+                </select>
+                <div>
+                    <form action="/add_location">
+                        <button class="btn btn-link" style="float:left;">Add Location</button>
+                    </form>
+                    <form action="/edit_location">
+                        <button class="btn btn-link" style="float:left;">Edit Location</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div class='form-group col'>
+                <label for="categoryID">Category</label>
+                <select class='form-control' name="categoryID" id="categoryID">
+                    <option value="">--Please choose an option--</option>
+                    {{#each categoryList}}
+                    <option value={{this.categoryID}}>{{this.categoryName}}</option>
+                    {{/each}}
+                </select>
+                <div>
+                    <form action="/add_category">
+                        <button class="btn btn-link" style="float:left;">Add Category</button>
+                    </form>
+                    <form action="/edit_category">
+                        <button class=" btn btn-link" style="float:left;">Edit Category</button>
+                    </form>
+                </div>
+            </div>
+            <div class='form-group'>
+                <label for="groupSize">Group Size</label>
+                <input class='form-control' type="number" name="groupSize" id="groupSize">
+            </div>
+            <br>
+        </div>
+        <div class='form-row'>
+            <div class='form-group col'>
+                <label for="comments">Comments</label>
+                <br>
+                <textarea class='form-control' name="comments" id="comments" cols="30" rows="10"
+                    placeholder="Enter comments here"></textarea>
+            </div>
+            <br>
+            <div class='form-group col'>
+                <label for="review">Review</label>
+                <br>
+                <textarea class='form-control' name="review" id="review" cols="30" rows="10"
+                    placeholder="Enter a review here"></textarea>
+            </div>
+            <br>
+        </div>
+        <input class=' btn btn-primary' type="submit" value="Add Entry" id="add_entry_button" style="float:left;">
+        <form action="/">
+            <button class='btn btn-link' style="float:left;">Cancel</button>
+        </form>
+    </form>
+</div>
 
-    <br>
-    <label for="locationID">Location:</label>
-    <select name="locationID" id="locationID">
-        <option value="">--Please choose an option--</option>
-        {{#each locationList}}
-            <option value={{this.locationID}}>{{this.name}}</option>
-        {{/each}}
-    </select>
 
-    <br>
-    <label for="categoryID">Category:</label>
-    <select name="categoryID" id="categoryID">
-        <option value="">--Please choose an option--</option>
-        {{#each categoryList}}
-            <option value={{this.categoryID}}>{{this.categoryName}}</option>
-        {{/each}}
-    </select>
-
-    <br>
-    <label for="comments">Comments:</label>
-    <br>
-    <textarea name="comments" id="comments" cols="30" rows="10" placeholder="Enter comments here"></textarea>
-
-    <br>
-    <label for="review">Review:</label>
-    <br>
-    <textarea name="review" id="review" cols="30" rows="10" placeholder="Enter a review here"></textarea>
-
-    <br>
-    <label for="groupSize">Group Size:</label>
-    <input type="number" name="groupSize" id="groupSize">
-    
-    <br>
-    <input type="submit" value="Add Entry" id="add_entry_button">
-</form>
-
-<form action="/add_location">
-    <button>Add Location</button>
-</form>
-
-<form action="/edit_location">
-    <button>Edit Location</button>
-</form>
-
-<form action="/add_category">
-    <button>Add Category</button>
-</form>
-
-<form action="/edit_category">
-    <button>Edit Category</button>
-</form>
-
-<form action="/">
-    <button>Cancel</button>
-</form>
 {{!-- <button id="btn_click">Cancel</button> --}}

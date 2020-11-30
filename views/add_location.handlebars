@@ -1,54 +1,58 @@
-<h1>Add a new location here!</h1>
 
-{{this.confirm_text}}
 
-{{!-- TODO: PUT new entries --}}
-<form id="insertForm" action="/add_location" method="POST">
-    <label for="name">Name:</label>
-    <input type="text" name="name" placeholder="Location Name" id="name" required="required">
-    
-    <br>
-    <label for="countryID">Country:</label>
-    <select name="countryID" id="countryID">
-        <option value="">--Please choose an option--</option>
-        {{#each countryList}}
-        <option value={{this.countryID}}>{{this.countryName}}</option>
-        {{/each}}
-    </select>
+<div class='container'>
+    <h3>Add new location</h3>
+    {{this.confirm_text}}
 
-    <br>
-    <label for="city">City:</label>
-    <input type="text" name="city" id="city" required="required">
-    
-{{!-- Not implemented
-    <br>
-    <label for="state">State:</label>
-    <select name="state" id="state">
-        <option value="">--Please choose an option--</option>
-        <option value="il">Illinois</option>
-        <option value="me">Maine</option>
-        <option value="wa">Washinton</option>
-        <option value="tx">Texas</option>
-        <option value="wi">Wisconsin</option>
-    </select> --}}
+    {{!-- TODO: PUT new entries --}}
+    <div class='form-group'>
+        <div class='form-row'>
+            <form id="insertForm" action="/add_location" method="POST">
+                <label for="name">Name:</label>
+                <input class='form-control col' type="text" name="name" placeholder="Location Name" id="name"
+                    required="required">
 
-    <br>
-    <label for="streetAddress">Street Address:</label>
-    <input type="text" name="streetAddress" id="streetAddress" placeholder="123 Green St" required="required">
-    
-    <br>
-    <input type="submit" value="Add Location" id="add_location_button">
-</form>
+                <br>
+                <label for="countryID">Country:</label>
+                <select class='form-control col' name="countryID" id="countryID">
+                    <option value="">--Please choose an option--</option>
+                    {{#each countryList}}
+                    <option value={{this.countryID}}>{{this.countryName}}</option>
+                    {{/each}}
+                </select>
+                <button class='btn btn-link' href='/add_country'> Add Country</button>
+                <button class='btn btn-link' href='/edit_country'>Edit Country</button>
 
-{{!-- TODO: Create a good back button --}}
-<form action="/add_entry">
-    <button>Cancel</button>
-</form>
+                <br>
+                <label for="city">City:</label>
+                <input class='form-control col' type="text" name="city" id="city" required="required">
 
-<form action="/add_country">
-    <button>Add Country</button>
-</form>
+                {{!-- Not implemented
+                    <br>
+                    <label for="state">State:</label>
+                <select name="state" id="state">
+            <option value="">--Please choose an option--</option>
+            <option value="il">Illinois</option>
+            <option value="me">Maine</option>
+                    <option value="wa">Washinton</option>
+                    <option value="tx">Texas</option>
+                    <option value="wi">Wisconsin</option>
+                    </select> --}}
 
-<form action="/edit_country">
-    <button>Edit Country</button>
-</form>
+                <br>
+                <label for="streetAddress">Street Address:</label>
+                <input class='form-control col' type="text" name="streetAddress" id="streetAddress"
+                    placeholder="123 Green St" required="required">
+
+                <br>
+                <input class='btn btn-primary' type="submit" value="Add Location" id="add_location_button">
+                <button class='btn btn-link' href='/add_entry'>Cancel</button>
+            </form>
+
+        </div>
+
+        {{!-- TODO: Create a good back button --}}
+
+    </div>
+
+</div>
