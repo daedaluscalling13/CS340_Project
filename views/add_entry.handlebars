@@ -2,7 +2,7 @@
 
 {{this.confirm_text}}
 
-<form id="insertForm" action='/add_entry' method="POST">
+<form id="insertEntryForm" action='/add_entry' method="POST">
 
     <input type="hidden" name="userID" value=1 id="userID">
 
@@ -24,6 +24,8 @@
         {{#each locationList}}
             <option value={{this.locationID}}>{{this.name}}</option>
         {{/each}}
+        <button id="editLocation">Edit</button>
+        <button id="deleteLocation">Delete</button>
     </select>
 
     <br>
@@ -33,6 +35,8 @@
         {{#each categoryList}}
             <option value={{this.categoryID}}>{{this.categoryName}}</option>
         {{/each}}
+        <button id="editCategory">Edit</button>
+        <button id="deleteCategory">Delete</button>
     </select>
 
     <br>
@@ -57,17 +61,17 @@
     <button>Add Location</button>
 </form>
 
-<form action="/edit_location">
+{{!-- <form action="/edit_location">
     <button>Edit Location</button>
-</form>
+</form> --}}
 
 <form action="/add_category">
     <button>Add Category</button>
 </form>
 
-<form action="/edit_category">
+{{!-- <form action="/edit_category">
     <button>Edit Category</button>
-</form>
+</form> --}}
 
 <form action="/">
     <button>Cancel</button>

@@ -17,7 +17,7 @@ const selectSearchQuery = `SELECT * FROM travelEntries
     ON travelEntries.entryID = travelEntries_location.tid`
 
 // Query to populate the edit TravelEntry page
-const selectEditQuery = `SELECT * FROM travelEntries
+const selectEditQuery = `SELECT *, DATE_FORMAT(DOE, '%Y-%m-%d') AS custom_date FROM travelEntries
     INNER JOIN locations ON travelEntries.locationID = locations.locationID
     INNER JOIN categories ON travelEntries.categoryID = categories.categoryID
     WHERE entryID=?`
@@ -38,19 +38,20 @@ const insertEntryQuery = `INSERT INTO travelEntries (userID, DOE, timeOfDay, loc
 
 // Query to update a TravelEntry from the edit TravelEntry page
 const updateEntryQuery = `UPDATE travelEntries SET
-dateOfEntry=?,
+userID=?,
+DOE=?,
 timeOfDay=?,
 locationID=?,
 categoryID=?,
 title=?,
 comments=?,
 review=?,
-groupSize=?,
-WHERE id=?`
+groupSize=?
+WHERE entryID=?`
 
 // Query to delete a TravelEntry from the home page
 // TODO: Add a confirmation before deleting?
-const deleteEntryQuery = `DELETE FROM travelEntries WHERE id=?`
+const deleteEntryQuery = `DELETE FROM travelEntries WHERE entryID=?`
 
 
 //---------------------------------------Controllers---------------------------------
@@ -107,9 +108,8 @@ exports.get_search_entries = async(req, res) => {
 
 // SELECT
 // An entry that we wish to edit
-// TODO: How do I send the entryID to the controller with the form?
 //
-exports.edit_latest_entries = async(req, res) => {
+exports.select_edit_entry = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
             var promiseResult = {}
@@ -117,11 +117,11 @@ exports.edit_latest_entries = async(req, res) => {
             promiseResult.res = res
             promiseResult.context = context
             
-            var {id} = req.body
-
-            mysql.pool.query(selectEditQuery, [id], (err, rows, fields) => {
+            var {entryID} = req.query
+            
+            mysql.pool.query(selectEditQuery, [entryID], (err, rows, fields) => {
                 try {
-                    promiseResult.context.entryList = rows
+                    promiseResult.context.entry = rows[0]
                     resolve(promiseResult);
                 } catch (err) {
                     res.status(400).send({ message: err.message })
@@ -142,7 +142,7 @@ exports.insert_entry = async(req, res, context) => {
             promiseResult.context = context
 
             var {userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize} = req.body;
-
+            console.log([userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize])
             mysql.pool.query(insertEntryQuery, [userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize], (err, rows, fields) => {
                 try {
                     resolve(promiseResult)
@@ -158,7 +158,7 @@ exports.insert_entry = async(req, res, context) => {
 }
 
 // UPDATE doesn't have to work yet
-exports.update_entry = async(req, res) => {
+exports.update_entry = async(req, res, context) => {
     return new Promise((resolve, reject) =>{
         try{
             var promiseResult = {}
@@ -166,8 +166,8 @@ exports.update_entry = async(req, res) => {
             promiseResult.res = res
             promiseResult.context = context
 
-            var {id, DOE, timeOfDay, locationID, categoryID, groupSize, comments, review} = req.body;
-            mysql.pool.query(selectLatestQuery, [DOE, timeOfDay, locationID, categoryID, groupSize, comments, review, id], (err, rows, fields) => {
+            var {entryID, userID, title, DOE, timeOfDay, locationID, categoryID, comments, review, groupSize} = req.body;
+            mysql.pool.query(updateEntryQuery, [userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize, entryID], (err, rows, fields) => {
                 try {
                     resolve(promiseResult);
                 } catch (err) {
