@@ -4,12 +4,24 @@ router = express.Router();
 const countryController = require(`../controllers/countries/countries.js`);
 const locationController = require(`../controllers/locations/locations.js`);
 
-router.get('/', (req,res) =>{
-    countryController.get_countries('add_location', req, res);
+router.get('/', async (req,res) =>{
+    var context = {}
+    context.confirm_text = ""
+    countryController.get_countries(req, res, context)
+    .then((promiseResult) =>{
+        promiseResult.res.render('add_location', promiseResult.context)
+    })
+    .catch(err => console.log(err));
 });
 
 router.post('/', (req, res)=>{
-    locationController.add_location(req, res);
+    var context = {}
+    context.confirm_text = "Location added!"
+    locationController.add_location(req, res, context)
+    .then((promiseResult) =>{
+        promiseResult.res.render('add_location', promiseResult.context)
+    })
+    .catch(err => console.log(err));
 });
 
 module.exports = router;

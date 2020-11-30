@@ -1,21 +1,25 @@
 <h1>Add a new entry here!</h1>
 
-{{!-- TODO: Post new entries --}}
-<form id="insertForm" action=>
+{{this.confirm_text}}
+
+<form id="insertForm" action='/add_entry' method="POST">
+
+    <input type="hidden" name="userID" value=1 id="userID">
+
     <label for="title">Title:</label>
     <input type="text" name="title" placeholder="Entry Title" id="title" required="required">
     
     <br>
-    <label for="dateOfEvent">Date of Entry:</label>
-    <input type="date" name="dateOfEvent" placeholder="yyyy-mm-dd" id="dateOfEvent" required="required">
+    <label for="DOE">Date of Entry:</label>
+    <input type="date" name="DOE" placeholder="yyyy-mm-dd" id="DOE" required="required">
 
     <br>
-    <label for="timeOfEntry">Time of Entry:</label>
-    <input type="time" name="timeOfEntry" id="timeOfEntry" required="required">
+    <label for="timeOfDay">Time of Entry:</label>
+    <input type="time" name="timeOfDay" id="timeOfDay" required="required">
 
     <br>
-    <label for="location">Location:</label>
-    <select name="location" id="location">
+    <label for="locationID">Location:</label>
+    <select name="locationID" id="locationID">
         <option value="">--Please choose an option--</option>
         {{#each locationList}}
             <option value={{this.locationID}}>{{this.name}}</option>
@@ -23,14 +27,12 @@
     </select>
 
     <br>
-    <label for="category">Category:</label>
-    <select name="category" id="category">
+    <label for="categoryID">Category:</label>
+    <select name="categoryID" id="categoryID">
         <option value="">--Please choose an option--</option>
-        <option value="restaurant">Restaurant</option>
-        <option value="bar">Bar</option>
-        <option value="attraction">Attraction</option>
-        <option value="monument">Monument</option>
-        <option value="festival">Festival</option>
+        {{#each categoryList}}
+            <option value={{this.categoryID}}>{{this.categoryName}}</option>
+        {{/each}}
     </select>
 
     <br>
