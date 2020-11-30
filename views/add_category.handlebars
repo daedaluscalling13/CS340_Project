@@ -1,17 +1,21 @@
-<h1>Add a new category here!</h1>
-
-{{this.confirm_text}}
-
 {{!-- TODO: PUT new entries --}}
-<form id="insertForm" action="/add_category" method="POST">
-    <label for="category_name">Name:</label>
-    <input type="text" name="categoryName" placeholder="Category Name" id="categoryName" required="required">
-    
-    <br>
-    <input type="submit" value="Add Category" id="add_category_button">
-</form>
+<div class='container'>
+    {{this.confirm_text}}
+    <div class='form-group'>
+        <form class='' id="insertForm" action="/add_category" method="POST">
+
+
+            <label for="category_name"></label>
+            <input class='form-control' type="text" name="categoryName" placeholder="Category Name" id="categoryName"
+                required="required">
+
+            <br>
+            <input class='btn btn-primary' type="submit" value="Add Category" id="add_category_button"
+                style='float:left'>
+            <button class='btn btn-link' href='/add_entry' style='float:left'>Cancel</button>
+    </div>
+    </form>
+   
+</div>
 
 {{!-- TODO: Create a good back button --}}
-<form action="/add_entry">
-    <button>Cancel</button>
-</form>
