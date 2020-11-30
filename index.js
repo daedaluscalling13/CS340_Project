@@ -13,13 +13,13 @@ app.use("/public", express.static('./public/'));
 
 // Routers
 const home = require('./routes/home.js');
-// const add_entry = require('./routes/add_entry.js');
+const add_entry = require('./routes/add_entry.js');
 const add_location = require('./routes/add_location.js');
 const add_country = require('./routes/add_country.js');
 const add_category = require('./routes/add_category.js');
 
 app.use('/home', home)
-// app.use('/add_entry', add_entry)
+app.use('/add_entry', add_entry)
 app.use('/add_location', add_location)
 app.use('/add_country', add_country)
 app.use('/add_category', add_category)
@@ -28,33 +28,17 @@ app.get('/', (req, res) => {
   res.redirect('/home');
 });
 
-app.get('/add_entry', function(req, res){
-  res.render('add_entry');
-});
-
 app.get('/edit_entry', function(req, res){
   res.render('edit_entry');
 });
-
-// app.get('/new_location', function(req, res){
-//   res.render('new_location');
-// });
 
 app.get('/edit_location', function(req, res){
   res.render('edit_location');
 });
 
-// app.get('/new_country', function(req, res){
-//   res.render('new_country');
-// });
-
 app.get('/edit_country', function(req, res){
   res.render('edit_country');
 });
-
-// app.get('/add_category', function(req, res){
-//   res.render('add_category');
-// });
 
 app.get('/edit_category', function(req, res){
   res.render('edit_category');
