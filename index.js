@@ -32,13 +32,6 @@ app.get('/edit_entry', function(req, res){
   res.render('edit_entry');
 });
 
-<<<<<<< HEAD
-app.get('/addlocation', function(req, res){
-  res.render('add_location');
-});
-
-=======
->>>>>>> a739a5761f0d5145759d24e4c48c90db77de6680
 app.get('/edit_location', function(req, res){
   res.render('edit_location');
 });
