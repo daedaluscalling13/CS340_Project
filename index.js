@@ -4,6 +4,13 @@ const mysql = require('./dbcon.js');
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 
+handlebars.handlebars.registerHelper('ifCond', function(id1, id2, options){
+  if(id1 === id2){
+    return options.fn(this);
+  }
+  return options.inverse(this)
+})
+
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 3000);
@@ -17,12 +24,14 @@ const add_entry = require('./routes/add_entry.js');
 const add_location = require('./routes/add_location.js');
 const add_country = require('./routes/add_country.js');
 const add_category = require('./routes/add_category.js');
+const edit_entry = require(`./routes/edit_entry.js`)
 
 app.use('/home', home)
 app.use('/add_entry', add_entry)
 app.use('/add_location', add_location)
 app.use('/add_country', add_country)
 app.use('/add_category', add_category)
+app.use('/edit_entry', edit_entry)
 
 app.get('/', (req, res) => {
   res.redirect('/home');
@@ -48,9 +57,9 @@ app.get('/other-page',function(req,res){
   res.render('other-page');
 });
 
-app.get('/delete_entry', function(req, res){
-  res.render('delete_entry');
-});
+// app.get('/delete_entry', function(req, res){
+//   res.render('delete_entry');
+// });
 
 const router = express.Router()
 app.use(router);

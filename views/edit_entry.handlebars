@@ -1,74 +1,87 @@
 <h1>Edit an entry here!</h1>
 
+{{entry.confirmText}}
+
 {{!-- TODO: PUT new entries --}}
-<form id="insertForm" action="/">
+<form id="insertEntryForm" action='/edit_entry' method="POST">
+
+    <input type="hidden" name="entryID" value={{entry.entryID}} id="entryID"}>
+    <input type="hidden" name="userID" value=1 id="userID">
+
     <label for="title">Title:</label>
-    <input type="text" name="title" placeholder="Entry Title" id="title" required="required">
+    <input type="text" name="title" placeholder="Entry Title" id="title" value={{entry.title}} required="required">
     
     <br>
-    <label for="dateOfEvent">Date of Entry:</label>
-    <input type="date" name="dateOfEvent" placeholder="yyyy-mm-dd" id="dateOfEvent" required="required">
+    <label for="DOE">Date of Entry:</label>
+    <input type="date" name="DOE" placeholder="yyyy-mm-dd" id="DOE" value={{entry.custom_date}} required="required">
 
     <br>
-    <label for="timeOfEntry">Time of Entry:</label>
-    <input type="time" name="timeOfEntry" id="timeOfEntry" required="required">
+    <label for="timeOfDay">Time of Entry:</label>
+    <input type="time" name="timeOfDay" id="timeOfDay" value={{entry.timeOfDay}} required="required">
 
     <br>
-    <label for="location">Location:</label>
-    <select name="location" id="location">
+    <label for="locationID">Location:</label>
+    <select name="locationID" id="locationID">
         <option value="">--Please choose an option--</option>
-        <option value="Rome">Rome</option>
-        <option value="London">London</option>
-        <option value="New York">New York</option>
-        <option value="Paris">Paris</option>
-        <option value="Tokyo">Tokyo</option>
-        <option value="Cairo">Cairo</option>
+        {{#each locationList}}
+            {{#ifCond this.locationID entry.locationID}}
+                <option value={{this.locationID}} selected>{{this.name}}</option>
+            {{else}}
+                <option value={{this.locationID}}>{{this.name}}</option>
+            {{/ifCond}}
+        {{/each}}
+        <button id="editLocation">Edit</button>
+        <button id="deleteLocation">Delete</button>
     </select>
 
     <br>
-    <label for="category">Category:</label>
-    <select name="category" id="category">
+    <label for="categoryID">Category:</label>
+    <select name="categoryID" id="categoryID">
         <option value="">--Please choose an option--</option>
-        <option value="restaurant">Restaurant</option>
-        <option value="bar">Bar</option>
-        <option value="attraction">Attraction</option>
-        <option value="monument">Monument</option>
-        <option value="festival">Festival</option>
+        {{#each categoryList}}
+            {{#ifCond this.categoryID entry.categoryID}}
+                <option value={{this.categoryID}} selected>{{this.categoryName}}</option>
+            {{else}}
+                <option value={{this.categoryID}}>{{this.categoryName}}</option>
+            {{/ifCond}}
+        {{/each}}
+        <button id="editCategory">Edit</button>
+        <button id="deleteCategory">Delete</button>
     </select>
 
     <br>
     <label for="comments">Comments:</label>
     <br>
-    <textarea name="comments" id="comments" cols="30" rows="10" placeholder="Enter comments here"></textarea>
+    <textarea name="comments" id="comments" cols="30" rows="10" value={{entry.comments}}></textarea>
 
     <br>
     <label for="review">Review:</label>
     <br>
-    <textarea name="review" id="review" cols="30" rows="10" placeholder="Enter a review here"></textarea>
+    <textarea name="review" id="review" cols="30" rows="10" value={{entry.review}}></textarea>
 
     <br>
     <label for="groupSize">Group Size:</label>
-    <input type="number" name="groupSize" id="groupSize">
+    <input type="number" name="groupSize" id="groupSize" value={{entry.groupSize}}>
     
     <br>
-    <input type="submit" value="Edit Entry" id="Edit_entry_button">
+    <input type="submit" value="Edit Entry" id="edit_entry_button">
 </form>
 
 <form action="/new_location">
     <button>Add Location</button>
 </form>
 
-<form action="/edit_location">
+{{!-- <form action="/edit_location">
     <button>Edit Location</button>
-</form>
+</form> --}}
 
 <form action="/new_category">
     <button>Add Category</button>
 </form>
 
-<form action="/edit_category">
+{{!-- <form action="/edit_category">
     <button>Edit Category</button>
-</form>
+</form> --}}
 
 <form action="/">
     <button>Cancel</button>
