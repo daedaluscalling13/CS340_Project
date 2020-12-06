@@ -1,6 +1,5 @@
-<h1>Edit a location here!</h1>
-
-</option>
+<div class='container'>
+    {{!-- </option>
     </select>
 
     <br>
@@ -18,23 +17,30 @@
         <option value="wi">Wisconsin</option>
     </select>
 
-    <br>
-    <label for="streetAddress">Street Address:</label>
-    <input type="text" name="streetAddress" id="streetAddress" placeholder="123 Green St" required="required">
-    
-    <br>
-    <input type="submit" value="Add Location" id="add_location_button">
-</form>
+    <br> --}}
+    <div class='form-group'>
+        <div class='form-row'>
+            <form action="">
+            <label for="streetAddress">Street Address:</label>
+            <input class='form-control'type="text" name="streetAddress" id="streetAddress" placeholder="123 Green St" required="required">
+            <input class='btn btn-primary' type="submit" value="Edit Location" id="add_location_button">
+            </form>
+        </div>
+    </div>
 
-{{!-- TODO: Create a good back button --}}
-<form action="/new_entry">
-    <button>Cancel</button>
-</form>
 
-<form action="/new_country">
-    <button>Add Country</button>
-</form>
+    {{!-- TODO: Create a good back button --}}
 
-<form action="/edit_country">
-    <button>Edit Country</button>
-</form>
+
+    <form action="/add_country" style='float:left;'>
+        <button class='btn btn-link'>Add Country</button>
+    </form>
+
+    <form action="/edit_country" style='float:left;'>
+        <button class='btn btn-link'>Edit Country</button>
+    </form>
+
+    <form action="/new_entry" style='float:left;'>
+        <button class='btn btn-link'>Cancel</button>
+    </form>
+</div>
