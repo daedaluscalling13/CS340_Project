@@ -1,34 +1,22 @@
 <div class='container'>
-    {{!-- </option>
-    </select>
-
-    <br>
-    <label for="city">City:</label>
-    <input type="time" name="city" id="city" required="required">
-
-    <br>
-    <label for="state">State:</label>
-    <select name="state" id="state">
-        <option value="">--Please choose an option--</option>
-        <option value="il">Illinois</option>
-        <option value="me">Maine</option>
-        <option value="wa">Washinton</option>
-        <option value="tx">Texas</option>
-        <option value="wi">Wisconsin</option>
-    </select>
-
-    <br> --}}
-    <div class='form-group'>
-        <div class='form-row'>
-            <form action="">
-            <label for="streetAddress">Street Address:</label>
-            <input class='form-control'type="text" name="streetAddress" id="streetAddress" placeholder="123 Green St" required="required">
-            <input class='btn btn-primary' type="submit" value="Edit Location" id="add_location_button">
-            </form>
-        </div>
-    </div>
-
-
+   
+    <table class='table'>
+        <tr>
+            <th>Location Name</th>
+            <th>City</th>
+            <th>Street Address</th>
+        </tr>
+        {{#each locationList}}
+        <tr>
+            <td id='location + {{this.locationID}}'>{{this.name}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.streetAddress}}</td>
+            <td><button id="editButton{{this.locationID}}" class='btn btn-primary'>Edit</button></td>
+            <td><button id="deleteButton{{this.locationID}}" class='btn btn-link'>Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
+  
     {{!-- TODO: Create a good back button --}}
 
 
@@ -40,7 +28,7 @@
         <button class='btn btn-link'>Edit Country</button>
     </form>
 
-    <form action="/new_entry" style='float:left;'>
+    <form action="/add_entry" style='float:left;'>
         <button class='btn btn-link'>Cancel</button>
     </form>
 </div>

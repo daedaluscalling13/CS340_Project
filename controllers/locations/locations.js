@@ -1,7 +1,7 @@
 const mysql = require('../../dbcon.js')
 
 //---------------------------------------Query Definitions---------------------------------
-const selectLocationsQuery = `SELECT locationID, name FROM locations`
+const selectLocationsQuery = `SELECT locationID, name, city, streetAddress FROM locations`
 
 const insertLocationQuery = `INSERT INTO locations (name, countryID, city, streetAddress)
     VALUES(

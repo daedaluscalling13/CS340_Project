@@ -26,6 +26,9 @@ const add_country = require('./routes/add_country.js');
 const add_category = require('./routes/add_category.js');
 const edit_entry = require(`./routes/edit_entry.js`)
 const edit_locations = require('./routes/edit_location.js')
+const edit_countries = require('./routes/edit_country.js')
+const edit_category = require('./routes/edit_category.js')
+
 
 
 const router = express.Router()
@@ -33,8 +36,9 @@ app.use(router);
 router.get('/api', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
-app.use('/editLocation', edit_locations)
-
+app.use('/edit_category', edit_category)
+app.use('/edit_location', edit_locations)
+app.use('/edit_country', edit_countries)
 app.use('/home', home)
 app.use('/add_entry', add_entry)
 app.use('/add_location', add_location)
