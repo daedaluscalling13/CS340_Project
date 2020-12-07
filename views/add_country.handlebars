@@ -4,7 +4,7 @@
     <h3>Add Country</h3>
 
     {{this.confirm_text}}
-    {{!-- TODO: PUT new entries --}}
+    
     <div class='form-group'>
         <form id="insertForm" action="/add_country" method="POST">
             <label for="country_name"></label>
@@ -15,9 +15,9 @@
             <input class='btn btn-primary' type="submit" value="Add Country" id="add_country_button"
                 style='float:left;'>
         </form>
-        {{!-- TODO: Create a good back button --}}
+
         <form action="/country">
-            <button class='btn btn-link' style='float:left;'>Cancel</button>
+            <input class=' btn btn-link' type="submit" value="Cancel" id="cancel_button" style="float:left;">
         </form>
     </div>
 

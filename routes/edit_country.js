@@ -1,5 +1,4 @@
 const express = require('express');
-const mysql = require('../dbcon.js')
 const router = express.Router();
 
 const countriesController = require(`../controllers/countries/countries.js`);

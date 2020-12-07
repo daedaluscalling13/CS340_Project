@@ -12,7 +12,7 @@
         </tr>
         {{#each countryList}}
         <tr>
-            <td id='country + {{this.countryID}}'>{{this.countryName}}</td>
+            <td>{{this.countryName}}</td>
             <td><form action="/edit_country" method="GET"><input type="hidden" name="countryID" value={{this.countryID}} id="countryID"}><button class="btn btn-primary" style="float:left;">Edit</button></form></td>
             <td><form action="/country" method="POST"><input type="hidden" name="countryID" value={{this.countryID}} id="countryID"}><button class="btn btn-link" style="float:left;">Delete</button></form></td>
         </tr>
