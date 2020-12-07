@@ -1,0 +1,21 @@
+<div class='container'>
+
+    <form action="/add_category/">
+        <button class='btn btn-primary btn-md'>Add Category</button>
+    </form>
+
+    {{this.confirm_text}}
+
+    <table class='table'>
+        <tr>
+            <th>Category Name</th>
+        </tr>
+        {{#each categoryList}}
+        <tr>
+            <td>{{this.categoryName}}</td>
+            <td><form action="/edit_category" method="GET"><input type="hidden" name="categoryID" value={{this.categoryID}} id="categoryID"}><button class="btn btn-primary" style="float:left;">Edit</button></form></td>
+            <td><form action="/category" method="POST"><input type="hidden" name="categoryID" value={{this.categoryID}} id="categoryID"}><button class="btn btn-link" style="float:left;">Delete</button></form></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
