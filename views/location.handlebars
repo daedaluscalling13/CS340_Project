@@ -12,7 +12,7 @@
                 <td>{{this.city}}</td>
                 <td>{{this.streetAddress}}</td>
                 <td><button id="editButton{{this.locationID}}" class='btn btn-primary'>Edit</button></td>
-                <td><form action="/edit_location" method="POST"><input type="hidden" name="locationID" value={{this.locationID}} id="locationID"}><button class="btn btn-link" style="float:left;">Delete</button></form></td>
+                <td><form action="/location" method="POST"><input type="hidden" name="locationID" value={{this.locationID}} id="locationID"}><button class="btn btn-link" style="float:left;">Delete</button></form></td>
             </tr>
         {{/each}}
     </table>

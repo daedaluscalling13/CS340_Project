@@ -27,6 +27,7 @@ app.use(function(req, res, next) {
 
 // Routers
 const home = require('./routes/home.js');
+const entry = require('./routes/entry.js');
 const add_entry = require('./routes/add_entry.js');
 const add_location = require('./routes/add_location.js');
 const add_country = require('./routes/add_country.js');
@@ -44,6 +45,7 @@ const edit_category = require('./routes/edit_category.js')
 //   response.json({ info: 'Node.js, Express, and Postgres API' })
 // })
 app.use('/home', home)
+app.use('/entry', entry)
 app.use('/add_entry', add_entry)
 app.use('/add_location', add_location)
 app.use('/add_country', add_country)

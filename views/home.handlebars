@@ -1,7 +1,4 @@
 <br>
-<form action="/add_entry/">
-    <button class='btn-primary btn-lg'>Add Entry</button>
-</form>
 <br>
 <div class="container-fluid">
     <div class ='row'>
@@ -17,7 +14,7 @@
                 <h6 class="card-subtitle mb-2 text-muted">Comments: {{this.comments}}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">Comments: {{this.review}}</h6>
 
-                <form action="/edit_entry">
+                {{!-- <form action="/edit_entry">
                     <input type="hidden" name="entryID" value={{this.entryID}} id="entryID">
                     <button class="btn btn-primary" style="float:left;">Edit Entry</button>
                 </form>
@@ -25,7 +22,7 @@
                 <form action="/home" method="POST">
                     <input type="hidden" name="entryID" value={{this.entryID}} id="entryID">
                     <button class="btn btn-link" style="float:left;">Delete Entry</button>
-                </form>
+                </form> --}}
             </div>
         </div>
         {{/each}}

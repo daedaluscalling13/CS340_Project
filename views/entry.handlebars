@@ -1,0 +1,33 @@
+<div class='container'>
+
+    <form action="/add_entry/">
+        <button class='btn btn-primary btn-md'>Add Entry</button>
+    </form>
+   
+    <table class='entryTable'>
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Group Size</th>
+            <th>Comments</th>
+            <th>Review</th>
+        </tr>
+        {{#each entryList}}
+            <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.DOE}}</td>
+                <td>{{this.timeOfDay}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.categoryName}}</td>
+                <td>{{this.groupSize}}</td>
+                <td>{{this.comments}}</td>
+                <td>{{this.review}}</td>
+                <td><form action="/edit_entry" method="GET"><input type="hidden" name="entryID" value={{this.entryID}} id="entryID"}><button class="btn btn-primary" style="float:left;">Edit</button></form></td>
+                <td><form action="/entry" method="POST"><input type="hidden" name="entryID" value={{this.entryID}} id="entryID"}><button class="btn btn-link" style="float:left;">Delete</button></form></td>
+            </tr>
+        {{/each}}
+    </table>
+</div>

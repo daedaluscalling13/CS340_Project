@@ -8,6 +8,12 @@ const selectLatestQuery = `SELECT * FROM travelEntries
     WHERE entryID>=((SELECT MAX(entryID) FROM travelEntries)-5)
     ORDER BY entryID DESC`
 
+// Query to populate entry page
+const selectAllQuery = `SELECT * FROM travelEntries
+    JOIN locations ON travelEntries.locationID = locations.locationID
+    JOIN categories ON travelEntries.categoryID = categories.categoryID
+    ORDER BY entryID ASC`
+
 // Query to populate the results page
 const selectSearchQuery = `SELECT * FROM travelEntries
     JOIN
@@ -65,6 +71,31 @@ exports.get_latest_entries = async(req, res, context) => {
             promiseResult.context = context
 
             mysql.pool.query(selectLatestQuery, (err, rows, fields) => {
+                try {
+                    promiseResult.context.entryList = rows
+                    resolve(promiseResult);
+                } catch (err) {
+                    res.status(400).send({ message: err.message })
+                }
+            });
+
+        } catch (err){
+            reject({ message: err.message});   
+        }
+    });
+    
+}
+
+// SELECT
+// All entries
+exports.get_all_entries = async(req, res, context) => {
+    return new Promise((resolve, reject)=>{
+        try{
+            var promiseResult = {}
+            promiseResult.res = res
+            promiseResult.context = context
+
+            mysql.pool.query(selectAllQuery, (err, rows, fields) => {
                 try {
                     promiseResult.context.entryList = rows
                     resolve(promiseResult);
