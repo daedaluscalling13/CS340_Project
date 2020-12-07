@@ -2,10 +2,10 @@ var express = require('express');
 const mysql = require('./dbcon.js');
 
 var app = express();
-var handlebars = require('express-handlebars').create({defaultLayout:'main'});
-
-handlebars.handlebars.registerHelper('ifCond', function(id1, id2, options){
-  if(id1 === id2){
+var handlebars = require('express-handlebars').create({ defaultLayout: 'main' });
+var endpoints = require('./endpoints.js')
+handlebars.handlebars.registerHelper('ifCond', function (id1, id2, options) {
+  if (id1 === id2) {
     return options.fn(this);
   }
   return options.inverse(this)
@@ -15,7 +15,7 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 3000);
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use("/public", express.static('./public/'));
 
 // Routers
@@ -25,6 +25,15 @@ const add_location = require('./routes/add_location.js');
 const add_country = require('./routes/add_country.js');
 const add_category = require('./routes/add_category.js');
 const edit_entry = require(`./routes/edit_entry.js`)
+const edit_locations = require('./routes/edit_location.js')
+
+
+const router = express.Router()
+app.use(router);
+router.get('/api', (request, response) => {
+  response.json({ info: 'Node.js, Express, and Postgres API' })
+})
+app.use('/editLocation', edit_locations)
 
 app.use('/home', home)
 app.use('/add_entry', add_entry)
@@ -37,23 +46,23 @@ app.get('/', (req, res) => {
   res.redirect('/home');
 });
 
-app.get('/edit_entry', function(req, res){
-  res.render('edit_entry');
-});
+// app.get('/edit_entry', function (req, res) {
+//   });
 
-app.get('/edit_location', function(req, res){
-  res.render('edit_location');
-});
 
-app.get('/edit_country', function(req, res){
+// app.get('edit_location', function (req, res) {
+//   res.render('edit_location')
+// })
+
+app.get('/edit_country', function (req, res) {
   res.render('edit_country');
 });
 
-app.get('/edit_category', function(req, res){
+app.get('/edit_category', function (req, res) {
   res.render('edit_category');
 });
 
-app.get('/other-page',function(req,res){
+app.get('/other-page', function (req, res) {
   res.render('other-page');
 });
 
@@ -61,11 +70,6 @@ app.get('/other-page',function(req,res){
 //   res.render('delete_entry');
 // });
 
-const router = express.Router()
-app.use(router);
-router.get('/api', (req, res) => {
-  res.json({info: 'Node.js, Express, MySQl API'})
-})
 
 // var db = require('./endpoints.js')
 // router.get('/api/entries', db.getEntries)
@@ -73,28 +77,28 @@ router.get('/api', (req, res) => {
 // router.put('/api/entries/:eid', db.updateEntry)
 // router.delete('/api/entries/:eid', db.deleteEntry)
 
-function genContext(){
+function genContext() {
   var stuffToDisplay = {};
   stuffToDisplay.time = (new Date(Date.now())).toLocaleTimeString('en-US');
   return stuffToDisplay;
 }
 
-app.get('/time',function(req,res){
+app.get('/time', function (req, res) {
   res.render('time', genContext());
 });
 
-app.use(function(req,res){
+app.use(function (req, res) {
   res.status(404);
   res.render('404');
 });
 
-app.use(function(err, req, res, next){
+app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.type('plain/text');
   res.status(500);
   res.render('500');
 });
 
-app.listen(app.get('port'), function(){
+app.listen(app.get('port'), function () {
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
