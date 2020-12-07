@@ -50,3 +50,40 @@
 
 // })
 
+
+document.addEventListener('DOMContentLoaded', bindFunctions);
+
+function bindFunctions(){
+    bindLocationEditButton()
+    // bindCountryEditButton()
+    // bindCategoryEditButton()
+    
+    //bindLocationDeleteButton()
+    // bindCountryDeleteButton()
+    // bindCategoryDeleteButton()
+}
+
+function bindLocationEditButton(){
+    document.getElementById("editLocationButton").addEventListener("click", navToEntry)
+}
+
+function navToEntry(event){
+    try{
+        let locID = document.getElementById("locationID").nodeValue
+        let payload = {locationID: locID}
+        let req = new XMLHttpRequest();
+        req.open('GET', 'localhost:3000/edit_location', true)
+        req.setRequestHeader('Content-Type', 'application/json');
+        req.addEventListener('load', function(){
+            if(req.status >= 200 && req.status < 400){
+                console.log(req.resonseText)
+            } else {
+                console.log(req.status)
+            }
+        })
+        req.send(JSON.stringify(payload));
+
+    } catch(err) {
+        console.log(err)
+    }
+}
