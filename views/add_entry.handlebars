@@ -1,7 +1,7 @@
 <div id='form-container' class='container'>
     <h3 style="display:flex;">Add a new entry here!</h3>
 
-    {{this.confirm_text}}
+    <h4>{{this.confirm_text}}</h4>
     <form id="insertForm" action='/add_entry' method="POST">
         <input type="hidden" name="userID" value=1 id="userID">
 
@@ -36,10 +36,6 @@
                     <option value={{this.locationID}}>{{this.name}}</option>
                     {{/each}}
                 </select>
-                <div>
-                    <button class="btn btn-link" href='/add_location' style="float:left;">Add Location</button>
-                    <button class="btn btn-link" href='/edit_location' style="float:left;">Edit Location</button>
-                </div>
             </div>
             <br>
             <div class='form-group col'>
@@ -50,10 +46,6 @@
                     <option value={{this.categoryID}}>{{this.categoryName}}</option>
                     {{/each}}
                 </select>
-                <div>
-                    <button class="btn btn-link" href='/add_category' style="float:left;">Add Category</button>
-                    <button class=" btn btn-link" href='/edit_category' style="float:left;">Edit Category</button>
-                </div>
             </div>
             <div class='form-group'>
                 <label for="groupSize">Group Size</label>
@@ -78,5 +70,8 @@
             <br>
         </div>
         <input class=' btn btn-primary' type="submit" value="Add Entry" id="add_entry_button" style="float:left;">
-        <button class='btn btn-link' href='/' style="float:left;">Cancel</button>
+    </form>
+    <form action="/entry">
+        <input class=' btn btn-link' type="submit" value="Cancel" id="cancel_button" style="float:left;">
+    </form>
 </div>

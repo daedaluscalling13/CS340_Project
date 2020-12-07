@@ -1,0 +1,27 @@
+<div class='container'>
+
+    <form action="/add_location/">
+        <button class='btn btn-primary btn-md'>Add Location</button>
+    </form>
+
+    {{this.confirm_text}}
+   
+    <table class='table'>
+        <tr>
+            <th>Location Name</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Street Address</th>
+        </tr>
+        {{#each locationList}}
+            <tr>
+                <td id='location{{this.locationID}}'>{{this.name}}</td>
+                <td>{{this.city}}</td>
+                <td>{{this.countryName}}</td>
+                <td>{{this.streetAddress}}</td>
+                <td><form action="/edit_location" method="GET"><input type="hidden" name="locationID" value={{this.locationID}} id="locationID"}><button class="btn btn-primary" style="float:left;">Edit</button></form></td>
+                <td><form action="/location" method="POST"><input type="hidden" name="locationID" value={{this.locationID}} id="locationID"}><button class="btn btn-link" style="float:left;">Delete</button></form></td>
+            </tr>
+        {{/each}}
+    </table>
+</div>

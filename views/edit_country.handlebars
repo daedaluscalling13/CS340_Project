@@ -1,30 +1,25 @@
 <div class='container'>
+    <h3>Edit Country</h3>
 
-    <table class='table'>
-        <tr>
-            <th>Country Name</th>
-        </tr>
-        {{#each countryList}}
-        <tr>
-            <td id='country + {{this.countryID}}'>{{this.countryName}}</td>
-            <td><button id="editButton{{this.countryID}}" class='btn btn-primary'>Edit</button></td>
-            <td><button id="deleteButton{{this.countryID}}" class='btn btn-link'>Delete</button></td>
-        </tr>
-        {{/each}}
-    </table>
-    <button class='btn btn-link' href='/add_location'>Cancel</button>
+    {{this.confirm_text}}
 
-    {{!-- TODO: PUT new entries --}}
-    {{!-- <div class='form-group'>
-        <div class='form-row'>
-            <form id="insertForm" action="/">
-                <label for="country_name">Name:</label>
-                <input class='form-control' type="text" name="country_name" placeholder="Country Name" id="country_name"
-                    required="required">
+    <div class='form-group'>
+        <form id="insertForm" action="/edit_country" method="POST">
 
-                <input class='btn btn-primary' type="submit" value="Add Country" id="add_location_button">
-            </form> --}}
+            <input type="hidden" name="countryID" value={{country.countryID}} id="countryID">
 
-    {{!-- TODO: Create a good back button --}}
+            <label for="countryName">Name:</label>
+            <input class='form-control' type="text" name="countryName" placeholder="Country Name" value={{country.countryName}} id="countryName"
+                required="required">
+
+            <br>
+            <input class='btn btn-primary' type="submit" value="Edit Country" id="edit_country_button"
+                style='float:left;'>
+        </form>
+        
+        <form action="/country">
+            <input class=' btn btn-link' type="submit" value="Cancel" id="cancel_button" style="float:left;">
+        </form>
+    </div>
 
 </div>

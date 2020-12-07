@@ -1,29 +1,23 @@
 <div class='container'>
+    <h3>Edit Category</h3>
 
-    <table class='table'>
-        <tr>
-            <th>Category Name</th>
-        </tr>
-        {{#each categoryList}}
-        <tr>
-            <td id='category + {{this.categoryID}}'>{{this.categoryName}}</td>
-            <td><button id="editButton{{this.categoryID}}" class='btn btn-primary'>Edit</button></td>
-            <td><button id="deleteButton{{this.categoryID}}" class='btn btn-link'>Delete</button></td>
-        </tr>
-        {{/each}}
-    </table>
-    <button class='btn btn-link' href='/add_entry'>Cancel</button>
-        {{!-- TODO: PUT new entries --}}
-    {{!-- <form id="insertForm" action="/">
-        <label for="category_name">Name:</label>
-        <input class='form-control' type="text" name="category_name" placeholder="Category Name" id="category_name"
-            required="required">
+    {{this.confirm_text}}
 
-        <br>
-        <input class='btn btn-primary' type="submit" value="Edit Category" id="add_location_button" style='float:left'>
-        <button class='btn btn-link' href='/new_entry' style='float:left'>Cancel</button>
+    <div class='form-group'>
+        <form class='' id="insertForm" action="/edit_category" method="POST">
 
-    </form>  --}}
-    {{!-- TODO: Create a good back button --}}
+            <input type="hidden" name="categoryID" value={{category.categoryID}} id="categoryID">
 
+            <label for="categoryName"></label>
+            <input class='form-control' type="text" name="categoryName" placeholder="Category Name" value={{category.categoryName}}id="categoryName"
+                required="required">
+
+            <br>
+            <input class='btn btn-primary' type="submit" value="Edit Category" id="edit_category_button"
+                style='float:left'>
+        </form>
+        <form action="/category">
+            <input class=' btn btn-link' type="submit" value="Cancel" id="cancel_button" style="float:left;">
+        </form>
+    </div>   
 </div>

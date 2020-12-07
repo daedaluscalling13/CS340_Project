@@ -18,8 +18,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/public", express.static('./public/'));
 
+// CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // Routers
 const home = require('./routes/home.js');
+const entry = require('./routes/entry.js');
+const location = require('./routes/location.js');
+const country = require('./routes/country.js');
+const category = require('./routes/category.js');
 const add_entry = require('./routes/add_entry.js');
 const add_location = require('./routes/add_location.js');
 const add_country = require('./routes/add_country.js');
@@ -31,20 +42,24 @@ const edit_category = require('./routes/edit_category.js')
 
 
 
-const router = express.Router()
-app.use(router);
-router.get('/api', (request, response) => {
-  response.json({ info: 'Node.js, Express, and Postgres API' })
-})
-app.use('/edit_category', edit_category)
-app.use('/edit_location', edit_locations)
-app.use('/edit_country', edit_countries)
+// const router = express.Router()
+// app.use(router);
+// router.get('/api', (request, response) => {
+//   response.json({ info: 'Node.js, Express, and Postgres API' })
+// })
 app.use('/home', home)
+app.use('/entry', entry)
+app.use('/location', location)
+app.use('/country', country)
+app.use('/category', category)
 app.use('/add_entry', add_entry)
 app.use('/add_location', add_location)
 app.use('/add_country', add_country)
 app.use('/add_category', add_category)
 app.use('/edit_entry', edit_entry)
+app.use('/edit_category', edit_category)
+app.use('/edit_location', edit_locations)
+app.use('/edit_country', edit_countries)
 
 app.get('/', (req, res) => {
   res.redirect('/home');

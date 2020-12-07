@@ -1,34 +1,42 @@
 <div class='container'>
-   
-    <table class='table'>
-        <tr>
-            <th>Location Name</th>
-            <th>City</th>
-            <th>Street Address</th>
-        </tr>
-        {{#each locationList}}
-        <tr>
-            <td id='location + {{this.locationID}}'>{{this.name}}</td>
-            <td>{{this.city}}</td>
-            <td>{{this.streetAddress}}</td>
-            <td><button id="editButton{{this.locationID}}" class='btn btn-primary'>Edit</button></td>
-            <td><button id="deleteButton{{this.locationID}}" class='btn btn-link'>Delete</button></td>
-        </tr>
-        {{/each}}
-    </table>
-  
-    {{!-- TODO: Create a good back button --}}
+    <h3>Add new location</h3>
 
+    <h4>{{this.confirm_text}}</h4>
+    <form id="insertForm" action="/edit_location" method="POST">
 
-    <form action="/add_country" style='float:left;'>
-        <button class='btn btn-link'>Add Country</button>
+        <input type="hidden" name="locationID" value={{location.locationID}} id="locationID"}>
+
+        <div class='form-row'>
+            <div class='form-group col'>
+                <label for="name">Name:</label>
+                <input class='form-control col' type="text" name="name" placeholder="Location Name" id="name"
+                    value={{location.name}} required>
+            </div>
+            <div class='form-group col'>
+                <label for="countryID">Country:</label>
+                <select class='form-control' name="countryID" id="countryID" required>
+                    <option value="">--Please choose an option--</option>
+                    {{#each countryList}}
+                        <option value={{this.countryID}}>{{this.countryName}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class='form-row'>
+            <div class='form-group col'>
+                <label for="city">City:</label>
+                <input class='form-control' type="text" name="city" id="city" value={{location.city}} required="required">
+            </div>
+            <div class='form-group col'>
+                <label for="streetAddress">Street Address:</label>
+                <input class='form-control' type="text" name="streetAddress" value={{location.streetAddress}} id="streetAddress"
+                    placeholder="123 Green St" required="required">
+            </div>
+        </div>
+        <input class='btn btn-primary' type="submit" value="Edit Location" id="edit_location_button">
     </form>
-
-    <form action="/edit_country" style='float:left;'>
-        <button class='btn btn-link'>Edit Country</button>
-    </form>
-
-    <form action="/add_entry" style='float:left;'>
-        <button class='btn btn-link'>Cancel</button>
+    <form action="/location">
+        <input class=' btn btn-link' type="submit" value="Cancel" id="cancel_button" style="float:left;">
     </form>
 </div>

@@ -1,58 +1,40 @@
-
-
 <div class='container'>
     <h3>Add new location</h3>
-    {{this.confirm_text}}
 
-    {{!-- TODO: PUT new entries --}}
-    <div class='form-group'>
+    <h4>{{this.confirm_text}}</h4>
+    <form id="insertForm" action="/add_location" method="POST">
+
         <div class='form-row'>
-            <form id="insertForm" action="/add_location" method="POST">
+            <div class='form-group col'>
                 <label for="name">Name:</label>
                 <input class='form-control col' type="text" name="name" placeholder="Location Name" id="name"
                     required="required">
-
-                <br>
+            </div>
+            <div class='form-group col'>
                 <label for="countryID">Country:</label>
-                <select class='form-control col' name="countryID" id="countryID">
+                <select class='form-control' name="countryID" id="countryID" required>
                     <option value="">--Please choose an option--</option>
                     {{#each countryList}}
-                    <option value={{this.countryID}}>{{this.countryName}}</option>
+                        <option value={{this.countryID}}>{{this.countryName}}</option>
                     {{/each}}
                 </select>
-                <button class='btn btn-link' href='/add_country'> Add Country</button>
-                <button class='btn btn-link' href='/edit_country'>Edit Country</button>
-
-                <br>
-                <label for="city">City:</label>
-                <input class='form-control col' type="text" name="city" id="city" required="required">
-
-                {{!-- Not implemented
-                    <br>
-                    <label for="state">State:</label>
-                <select name="state" id="state">
-            <option value="">--Please choose an option--</option>
-            <option value="il">Illinois</option>
-            <option value="me">Maine</option>
-                    <option value="wa">Washinton</option>
-                    <option value="tx">Texas</option>
-                    <option value="wi">Wisconsin</option>
-                    </select> --}}
-
-                <br>
-                <label for="streetAddress">Street Address:</label>
-                <input class='form-control col' type="text" name="streetAddress" id="streetAddress"
-                    placeholder="123 Green St" required="required">
-
-                <br>
-                <input class='btn btn-primary' type="submit" value="Add Location" id="add_location_button">
-                <button class='btn btn-link' href='/add_entry'>Cancel</button>
-            </form>
-
+            </div>
         </div>
-
-        {{!-- TODO: Create a good back button --}}
-
-    </div>
-
+        <br>
+        <div class='form-row'>
+            <div class='form-group col'>
+                <label for="city">City:</label>
+                <input class='form-control' type="text" name="city" id="city" required="required">
+            </div>
+            <div class='form-group col'>
+                <label for="streetAddress">Street Address:</label>
+                <input class='form-control' type="text" name="streetAddress" id="streetAddress"
+                    placeholder="123 Green St" required="required">
+            </div>
+        </div>
+        <input class='btn btn-primary' type="submit" value="Add Location" id="add_location_button">
+    </form>
+    <form action="/location">
+        <input class=' btn btn-link' type="submit" value="Cancel" id="cancel_button" style="float:left;">
+    </form>
 </div>
