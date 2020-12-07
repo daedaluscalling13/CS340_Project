@@ -28,6 +28,7 @@ router.post('/', async (req, res) =>{
 
     locationController.update_location(req, res, context)
     .then((promiseResolve) => {
+        promiseResolve.req.query.locationID = promiseResolve.req.body.locationID
         locationController.get_edit_location(promiseResolve.req, promiseResolve.res, promiseResolve.context)
         .then((promiseInfo) => {
             countryController.get_countries(promiseInfo.req, promiseInfo.res, promiseInfo.context)
