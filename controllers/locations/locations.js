@@ -1,7 +1,12 @@
 const mysql = require('../../dbcon.js')
 
 //---------------------------------------Query Definitions---------------------------------
-const selectLocationsQuery = `SELECT locationID, name, city, streetAddress FROM locations`
+const selectLocationsQuery = `SELECT * FROM locations
+    JOIN countries ON locations.countryID = countries.countryID`
+
+const selectEditQuery = `SELECT * FROM locations
+    JOIN countries ON locations.countryID = countries.countryID
+    WHERE locationID=?`
 
 const insertLocationQuery = `INSERT INTO locations (name, countryID, city, streetAddress)
     VALUES(
@@ -44,6 +49,30 @@ exports.get_locations = (req, res, context) =>{
     })
 }
 
+exports.get_edit_location = (req, res, context) => {
+    return new Promise((resolve, reject) => {
+        try {
+            var promiseInfo = {}
+            promiseInfo.req = req
+            promiseInfo.req = res
+            promiseInfo.context = context
+
+            var {locationID} = req.query
+
+            mysql.pool.query(selectEditQuery, [locationID], (err, rows, fields) => {
+                try{
+                    promiseInfo.context.location = rows[0]
+                    resolve(promiseInfo)
+                } catch (err) {
+                    res.status(400).send({ message: err.message})
+                }
+            })
+        } catch (err) {
+            reject({ message : err.message })
+        }
+    })
+}
+
 exports.add_location = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
@@ -66,7 +95,7 @@ exports.add_location = async(req, res, context) => {
     });
 }
 
-exports.update_location = async(req, res) => {
+exports.update_location = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
             var promiseInfo = {}
@@ -74,8 +103,8 @@ exports.update_location = async(req, res) => {
             promiseInfo.res = res
             promiseInfo.context = context
 
-            var {id, name, countryID, city, streetAddress} = req.body
-            mysql.pool.query(updateLocationQuery, [name, countryID, city, streetAddress, id], (req, res)=>{
+            var {locationID, name, countryID, city, streetAddress} = req.body
+            mysql.pool.query(updateLocationQuery, [name, countryID, city, streetAddress, locationID], (req, res)=>{
                 try{
                     resolve(promiseInfo);
                 } catch (err){

@@ -1,38 +1,34 @@
 const express = require('express');
-const mysql = require('../dbcon.js')
 const router = express.Router();
 
 const locationController = require(`../controllers/locations/locations.js`);
 const countryController = require(`../controllers/countries/countries.js`);
 
-router.get('/', async (req, res) => {
+router.get('/', async function(req, res) {
     var context = {};
-    context.confirm_text = ""
    
-   locationController.get_edit_location(req, res, context)
+   locationController.get_locations(req, res, context)
    .then((promiseResult) => {
-        countryController.get_countries(promiseResult.req, promiseResult.res, promiseResult.context)
-        .then((result) => {
-            res.render('edit_location', result.context)
-        })
-        .catch(err => console.log(err))
+       countryController.get_countries(promiseResult.req, promiseResult.res, promiseResult.context)
+       .then((result) => {
+           res.render('location', result.context)
+       })
+       .catch(err => console.log(err))
     })
     .catch(err => console.log(err)); 
-  
-
 });
 
 router.post('/', async (req, res) =>{
     var context = {};
-    context.confirm_text = "Updated location"
+    context.confirm_text = "Deleted location"
 
-    locationController.update_location(req, res, context)
+    locationController.delete_location(req, res, context)
     .then((promiseResolve) => {
-        locationController.get_edit_location(promiseResolve.req, promiseResolve.res, promiseResolve.context)
+        locationController.get_locations(promiseResolve.req, promiseResolve.res, promiseResolve.context)
         .then((promiseInfo) => {
             countryController.get_countries(promiseInfo.req, promiseInfo.res, promiseInfo.context)
             .then((result) => {
-                res.render('edit_location', result.context)
+                res.render('location', result.context)
             })
             .catch(err => console.log(err))
         })
