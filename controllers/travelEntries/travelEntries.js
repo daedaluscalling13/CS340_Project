@@ -142,7 +142,6 @@ exports.insert_entry = async(req, res, context) => {
             promiseResult.context = context
 
             var {userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize} = req.body;
-            console.log([userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize])
             mysql.pool.query(insertEntryQuery, [userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize], (err, rows, fields) => {
                 try {
                     resolve(promiseResult)
