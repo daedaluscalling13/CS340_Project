@@ -1,17 +1,29 @@
 <div class='container'>
-    <div class='form-group'>
+
+    <table class='table'>
+        <tr>
+            <th>Category Name</th>
+        </tr>
+        {{#each categoryList}}
+        <tr>
+            <td id='category + {{this.categoryID}}'>{{this.categoryName}}</td>
+            <td><button id="editButton{{this.categoryID}}" class='btn btn-primary'>Edit</button></td>
+            <td><button id="deleteButton{{this.categoryID}}" class='btn btn-link'>Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
+    <button class='btn btn-link' href='/add_entry'>Cancel</button>
         {{!-- TODO: PUT new entries --}}
-        <form id="insertForm" action="/">
-            <label for="category_name">Name:</label>
-            <input class='form-control' type="text" name="category_name" placeholder="Category Name" id="category_name"
-                required="required">
+    {{!-- <form id="insertForm" action="/">
+        <label for="category_name">Name:</label>
+        <input class='form-control' type="text" name="category_name" placeholder="Category Name" id="category_name"
+            required="required">
 
-            <br>
-            <input class='btn btn-primary' type="submit" value="Edit Category" id="add_location_button" style='float:left'>
-            <button class='btn btn-link' href='/new_entry' style='float:left'>Cancel</button>
+        <br>
+        <input class='btn btn-primary' type="submit" value="Edit Category" id="add_location_button" style='float:left'>
+        <button class='btn btn-link' href='/new_entry' style='float:left'>Cancel</button>
 
-        </form>
-        {{!-- TODO: Create a good back button --}}
-    
-    </div>
+    </form>  --}}
+    {{!-- TODO: Create a good back button --}}
+
 </div>

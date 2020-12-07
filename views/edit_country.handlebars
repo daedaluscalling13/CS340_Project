@@ -1,6 +1,21 @@
 <div class='container'>
+
+    <table class='table'>
+        <tr>
+            <th>Country Name</th>
+        </tr>
+        {{#each countryList}}
+        <tr>
+            <td id='country + {{this.countryID}}'>{{this.countryName}}</td>
+            <td><button id="editButton{{this.countryID}}" class='btn btn-primary'>Edit</button></td>
+            <td><button id="deleteButton{{this.countryID}}" class='btn btn-link'>Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
+    <button class='btn btn-link' href='/add_location'>Cancel</button>
+
     {{!-- TODO: PUT new entries --}}
-    <div class='form-group'>
+    {{!-- <div class='form-group'>
         <div class='form-row'>
             <form id="insertForm" action="/">
                 <label for="country_name">Name:</label>
@@ -8,13 +23,8 @@
                     required="required">
 
                 <input class='btn btn-primary' type="submit" value="Add Country" id="add_location_button">
-            </form>
+            </form> --}}
 
-            {{!-- TODO: Create a good back button --}}
+    {{!-- TODO: Create a good back button --}}
 
-        </div>
-    </div>
-    <form action="/add_location">
-        <button class='btn btn-link'>Cancel</button>
-    </form>
 </div>
