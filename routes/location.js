@@ -4,7 +4,7 @@ const router = express.Router();
 const locationController = require(`../controllers/locations/locations.js`);
 const countryController = require(`../controllers/countries/countries.js`);
 
-router.get('/', async function(req, res) {
+router.get('/', async (req, res) => {
     var context = {};
    
    locationController.get_locations(req, res, context)

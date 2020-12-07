@@ -1,16 +1,18 @@
 const mysql = require('../../dbcon.js')
 
 //---------------------------------------Query Definitions---------------------------------
-const selectCountriesQuery = `SELECT countryID, countryName FROM countries`
+const selectCountriesQuery = `SELECT * FROM countries`
+
+const selectEditQuery = `SELECT * FROM countries WHERE countryID=?`
 
 const insertCountryQuery = `INSERT INTO countries (countryName)
     VALUES(
         ?
     )`
 
-const updateCountryQuery = `UPDATE countries SET countryName=? WHERE id=?`
+const updateCountryQuery = `UPDATE countries SET countryName=? WHERE countryID=?`
 
-const deleteCountryQuery = `DELETE countries WHERE id=?`
+const deleteCountryQuery = `DELETE FROM countries WHERE countryID=?`
 
 //---------------------------------------Controllers---------------------------------
 exports.get_countries = (req, res, context) =>{
@@ -24,6 +26,30 @@ exports.get_countries = (req, res, context) =>{
             mysql.pool.query(selectCountriesQuery, (err, rows, fields) =>{
                 try{
                     promiseInfo.context.countryList = rows
+                    resolve(promiseInfo)
+                } catch (err) {
+                    res.status(400).send({ message: err.message });
+                }
+            });
+        } catch (err){
+            reject({ message : err.message })
+        }
+    })
+}
+
+exports.get_edit_country = (req, res, context) =>{
+    return new Promise((resolve, reject) => {
+        try{
+            var promiseInfo = {}
+            promiseInfo.req = req
+            promiseInfo.res = res
+            promiseInfo.context = context
+            
+            var {countryID} = req.query
+
+            mysql.pool.query(selectEditQuery, [countryID], (err, rows, fields) =>{
+                try{
+                    promiseInfo.context.country = rows[0]
                     resolve(promiseInfo)
                 } catch (err) {
                     res.status(400).send({ message: err.message });
@@ -57,7 +83,7 @@ exports.add_country = async(req, res, context) => {
     });
 }
 
-exports.update_country = async(req, res) => {
+exports.update_country = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
             var promiseInfo = {}
@@ -65,8 +91,8 @@ exports.update_country = async(req, res) => {
             promiseInfo.res = res
             promiseInfo.context = context
 
-            var {id, countryName} = req.body
-            mysql.pool.query(updateCountryQuery, [countryName, id], (req, res)=>{
+            var {countryID, countryName} = req.body
+            mysql.pool.query(updateCountryQuery, [countryName, countryID], (req, res)=>{
                 try{
                     resolve(promiseInfo);
                 } catch (err){
@@ -79,7 +105,7 @@ exports.update_country = async(req, res) => {
     });
 }
 
-exports.delete_country = async(req, res) => {
+exports.delete_country = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
             var promiseInfo = {}
@@ -87,8 +113,8 @@ exports.delete_country = async(req, res) => {
             promiseInfo.res = res
             promiseInfo.context = context
 
-            var {id} = req.body
-            mysql.pool.query(deleteCountryQuery, [id], (req, res)=>{
+            var {countryID} = req.body
+            mysql.pool.query(deleteCountryQuery, [countryID], (req, res)=>{
                 try{
                     resolve(promiseInfo);
                 } catch (err){
