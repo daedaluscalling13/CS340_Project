@@ -38,20 +38,20 @@ const edit_category = require('./routes/edit_category.js')
 
 
 
-const router = express.Router()
-app.use(router);
-router.get('/api', (request, response) => {
-  response.json({ info: 'Node.js, Express, and Postgres API' })
-})
-app.use('/edit_category', edit_category)
-app.use('/edit_location', edit_locations)
-app.use('/edit_country', edit_countries)
+// const router = express.Router()
+// app.use(router);
+// router.get('/api', (request, response) => {
+//   response.json({ info: 'Node.js, Express, and Postgres API' })
+// })
 app.use('/home', home)
 app.use('/add_entry', add_entry)
 app.use('/add_location', add_location)
 app.use('/add_country', add_country)
 app.use('/add_category', add_category)
 app.use('/edit_entry', edit_entry)
+app.use('/edit_category', edit_category)
+app.use('/edit_location', edit_locations)
+app.use('/edit_country', edit_countries)
 
 app.get('/', (req, res) => {
   res.redirect('/home');
