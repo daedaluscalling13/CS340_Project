@@ -16,9 +16,9 @@ const updateLocationQuery = `UPDATE locations SET
         countryID=?,
         city=?,
         streetAddress=?
-        WHERE id=?
+        WHERE locationID=?
     `
-const deleteLocationQuery = `DELETE FROM locations WHERE id=?`
+const deleteLocationQuery = `DELETE FROM locations WHERE locationID=?`
 
 //---------------------------------------Controllers---------------------------------
 
@@ -88,7 +88,7 @@ exports.update_location = async(req, res) => {
     });
 }
 
-exports.delete_location = async(req, res) => {
+exports.delete_location = async(req, res, context) => {
     return new Promise((resolve, reject) => {
         try{
             var promiseInfo = {}
@@ -96,8 +96,8 @@ exports.delete_location = async(req, res) => {
             promiseInfo.res = res
             promiseInfo.context = context
 
-            var {id} = req.body
-            mysql.pool.query(deleteLocationQuery, [id], (req, res)=>{
+            var {locationID} = req.body
+            mysql.pool.query(deleteLocationQuery, [locationID], (req, res)=>{
                 try{
                     resolve(promiseInfo);
                 } catch (err){

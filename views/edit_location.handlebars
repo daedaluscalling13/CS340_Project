@@ -1,32 +1,22 @@
 <div class='container'>
    
-    <table class='table'>
+    <table class='editLocationTable'>
         <tr>
             <th>Location Name</th>
             <th>City</th>
             <th>Street Address</th>
         </tr>
         {{#each locationList}}
-        <tr>
-            <td id='location + {{this.locationID}}'>{{this.name}}</td>
-            <td>{{this.city}}</td>
-            <td>{{this.streetAddress}}</td>
-            <td><button id="editButton{{this.locationID}}" class='btn btn-primary'>Edit</button></td>
-            <td><button id="deleteButton{{this.locationID}}" class='btn btn-link'>Delete</button></td>
-        </tr>
+            <tr>
+                <td id='location{{this.locationID}}'>{{this.name}}</td>
+                <td>{{this.city}}</td>
+                <td>{{this.streetAddress}}</td>
+                <td><button id="editButton{{this.locationID}}" class='btn btn-primary'>Edit</button></td>
+                {{!-- <td><button id="deleteButton{{this.locationID}}" class='btn btn-link'>Delete</button></td> --}}
+                <td><form action="/edit_location" method="POST"><input type="hidden" name="locationID" value={{this.locationID}} id="locationID"}><button class="btn btn-link" style="float:left;">Delete</button></form></td>
+            </tr>
         {{/each}}
     </table>
-  
-    {{!-- TODO: Create a good back button --}}
-
-
-    <form action="/add_country" style='float:left;'>
-        <button class='btn btn-link'>Add Country</button>
-    </form>
-
-    <form action="/edit_country" style='float:left;'>
-        <button class='btn btn-link'>Edit Country</button>
-    </form>
 
     <form action="/add_entry" style='float:left;'>
         <button class='btn btn-link'>Cancel</button>
