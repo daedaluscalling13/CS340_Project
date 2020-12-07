@@ -37,12 +37,8 @@
                     {{/each}}
                 </select>
                 <div>
-                    <form action="/add_location">
-                        <button class="btn btn-link" style="float:left;">Add Location</button>
-                    </form>
-                    <form action="/edit_location">
-                        <button class="btn btn-link" style="float:left;">Edit Location</button>
-                    </form>
+                    <button class="btn btn-link" href='/add_location' style="float:left;">Add Location</button>
+                    <button class="btn btn-link" href='/edit_location' style="float:left;">Edit Location</button>
                 </div>
             </div>
             <br>
@@ -55,12 +51,8 @@
                     {{/each}}
                 </select>
                 <div>
-                    <form action="/add_category">
-                        <button class="btn btn-link" style="float:left;">Add Category</button>
-                    </form>
-                    <form action="/edit_category">
-                        <button class=" btn btn-link" style="float:left;">Edit Category</button>
-                    </form>
+                    <button class="btn btn-link" href='/add_category' style="float:left;">Add Category</button>
+                    <button class=" btn btn-link" href='/edit_category' style="float:left;">Edit Category</button>
                 </div>
             </div>
             <div class='form-group'>
@@ -86,8 +78,5 @@
             <br>
         </div>
         <input class=' btn btn-primary' type="submit" value="Add Entry" id="add_entry_button" style="float:left;">
-        <form action="/">
-            <button class='btn btn-link' style="float:left;">Cancel</button>
-        </form>
-    </form>
+        <button class='btn btn-link' href='/' style="float:left;">Cancel</button>
 </div>
