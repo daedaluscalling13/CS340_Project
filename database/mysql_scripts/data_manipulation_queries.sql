@@ -1,83 +1,133 @@
 -- Database Manipulation queries using the Travel Blog DB
 
--- select the 5 most recent travel entries to display on the home page
+-------------------------------------TravelEntries---------------------------------------
+
+-- Query to populate the home page with the 5 most recent entries
 SELECT * FROM travelEntries
-INNER JOIN locations ON travelEntries.locationID = locations.locationID
-INNER JOIN categories ON travelEntries.categoryID = categories.categoryID
-WHERE entryID>=((SELECT MAX(entryID) FROM travelEntries)-5)
+    JOIN locations ON travelEntries.locationID = locations.locationID
+    JOIN categories ON travelEntries.categoryID = categories.categoryID
+    WHERE entryID >= ((SELECT MAX(entryID) FROM travelEntries)-5)
+    ORDER BY entryID DESC
 
--- select TravelEntries based on a searchable location
+-- Query to populate entry page
 SELECT * FROM travelEntries
-JOIN
-(SELECT * FROM travelEntries_locations
-JOIN locations ON travelEntries.lid = locations.locationID
-WHERE locations.name = `${searchable_location_name}`)
-ON travelEntries.entryID = travelEntries_location.tid
+    JOIN locations ON travelEntries.locationID = locations.locationID
+    JOIN categories ON travelEntries.categoryID = categories.categoryID
+    ORDER BY entryID ASC
 
--- get all Location IDs and Names to populate the Location dropdown on the Add/Edit TravelEntry page
-SELECT locationID, name FROM locations
-
--- get all countries to populate the Country dropdown on the Add/Edit Location page
-SELECT countryID, countryName FROM countries
-
--- get all countries to populate the Catorgy dropdown on the Add/Edit TravelEntry page
-SELECT categoryID, categoryName FROM categories
-
--- get all the information of a TravelEntry based on it's id to populate the fields in the Edit TravelEntry page
+-- Query to populate the results page
 SELECT * FROM travelEntries
-INNER JOIN locations ON travelEntries.locationID = locations.locationID
-INNER JOIN categories ON travelEntries.categoryID = categories.categoryID
-WHERE entryID=`${entryID_to_be_specified}`
+    JOIN
+    (SELECT * FROM travelEntries_locations
+    JOIN locations ON travelEntries.lid = locations.locationID
+    WHERE locations.name =?)
+    ON travelEntries.entryID = travelEntries_location.tid
 
--- get all the information of a Location based on it's id to populate the fields in the Edit Location page
+-- Query to populate the edit TravelEntry page
+SELECT *, DATE_FORMAT(DOE, '%Y-%m-%d') AS custom_date FROM travelEntries
+    INNER JOIN locations ON travelEntries.locationID = locations.locationID
+    INNER JOIN categories ON travelEntries.categoryID = categories.categoryID
+    WHERE entryID=?
+
+-- Query to add a new TravelEntry
+INSERT INTO travelEntries (userID, DOE, timeOfDay, locationID, categoryID, title, comments, review, groupSize)
+    VALUES(
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?
+    )
+
+-- Query to update a TravelEntry from the edit TravelEntry page
+UPDATE travelEntries SET
+userID=?,
+DOE=?,
+timeOfDay=?,
+locationID=?,
+categoryID=?,
+title=?,
+comments=?,
+review=?,
+groupSize=?
+WHERE entryID=?
+
+-- Query to delete a TravelEntry from the Entry page
+DELETE FROM travelEntries WHERE entryID=?
+
+-------------------------------------Locations-------------------------------------------
+
+-- Query to select all Locations for the Locations page and the Add/Edit TravelEntries Pages
 SELECT * FROM locations
-INNER JOIN countries ON locations.countryID = countries.countryID
-WHERE locationID=`${locationID_to_be_specified}`
+    JOIN countries ON locations.countryID = countries.countryID
 
--- get all the information of a country based on it's id to populate the fields in the Edit Country page
-SELECT * FROM countries WHERE countryID=`${countryID_to_be_specified}`
+-- Query to select a specific location on the Edit Locations page
+SELECT * FROM locations
+    JOIN countries ON locations.countryID = countries.countryID
+    WHERE locationID=?
 
--- get all the information of a category based on it's id to populate the fields in the Edit Category page
-SELECT * FROM categories WHERE categoryID=`${categoryID_to_be_specified}`
+-- Query to create a Location from the Add Location page
+INSERT INTO locations (name, countryID, city, streetAddress)
+    VALUES(
+        ?,
+        ?,
+        ?,
+        ?
+    )
 
-
-
---TODO: Add Inserts here
-
-
-
--- update a TravelEntry based on submission of the Edit TravelEntry form 
-UPDATE TravelEntry SET
-dateOfEntry = `${date_to_be_specified}`,
-timeOfDay = `${time_to_be_specified}`,
-location = `${locationID_to_be_specified}`,
-category = `${categoryID_to_be_specified}`,
-title = `${title_to_be_specified}`
-comments = `${comments_to_be_specified}`,
-review= `${review_to_be_specified}`,
-groupSize = `${groupSize_to_be_specified}`
-WHERE id= `${entryID_to_be_specified}`
-
--- update a Location based on submission of the Edit Location form 
+-- Query to update a Location from the Edit Location page
 UPDATE locations SET
-name = `${name_to_be_specified}`,
-country = `${countryID_to_be_specified}`,
-city = `${city_to_be_specified}`,
-streetAddress= `${streetAddress_to_be_specified}`
-WHERE id= `${locationID_to_be_specified}`
+        name=?,
+        countryID=?,
+        city=?,
+        streetAddress=?
+        WHERE locationID=?
 
--- update a Country based on submission of the Edit Country form 
-UPDATE countries SET
-countryName = `${name_to_be_specified}`,
-WHERE id= `${countryID_to_be_specified}`
+-- Query to delete a Location from the Location page
+DELETE FROM locations WHERE locationID=?
 
--- update a Category based on submission of the Edit Category form 
-UPDATE categories SET
-categoryName = `${name_to_be_specified}`,
-WHERE id= `${categoryID_to_be_specified}`
+-------------------------------------Countries-------------------------------------------
 
--- delete a TravelEntry
-DELETE FROM travelEntries WHERE id= `${entryID_to_be_specified}`
+-- Query to select all Countries for the Country page and the Add/Edit Locations page
+SELECT * FROM countries
 
--- dis-associate a TravelEntry from a Location (M-to-M relationship deletion)
-DELETE FROM travelEntries_locations WHERE tid = `${entryID_to_be_specified}` AND lid = `${locationID_to_be_specified}`
+-- Query to select specific Countries from the Edit Country page
+SELECT * FROM countries WHERE countryID=?
+
+-- Query to create Countries from the Add Country page
+INSERT INTO countries (countryName)
+    VALUES(
+        ?
+    )
+
+-- Query to update Countries from the Edit Country page
+UPDATE countries SET countryName=? WHERE countryID=?
+
+-- Query to delete Countries from the Country page
+DELETE FROM countries WHERE countryID=?
+
+-------------------------------------Categories------------------------------------------
+
+-- Query to select all categories for the Categories page and the Add/Edit TravelEntries pages
+const selectCategoriesQuery = `SELECT * FROM categories`
+
+-- Query to select a specific category for the Edit Categories page
+SELECT * FROM categories WHERE categoryID=?
+
+-- Query to insert Categories from the Add Categories page
+INSERT INTO categories (categoryName)
+    VALUES(
+        ?
+    )
+
+-- Query to update Categories from Edit Category page
+UPDATE categories SET categoryName=? WHERE categoryID=?
+
+-- Query to delete Categories from Category page
+DELETE FROM categories WHERE categoryID=?
+
+-----------------------------------------------------------------------------------------
