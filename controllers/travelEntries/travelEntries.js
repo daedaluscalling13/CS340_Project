@@ -4,14 +4,14 @@ const mysql = require('../../dbcon.js')
 // Query to populate the home page
 const selectLatestQuery = `SELECT * FROM travelEntries
     JOIN locations ON travelEntries.locationID = locations.locationID
-    JOIN categories ON travelEntries.categoryID = categories.categoryID
+    LEFT JOIN categories ON travelEntries.categoryID = categories.categoryID
     WHERE entryID>=((SELECT MAX(entryID) FROM travelEntries)-5)
     ORDER BY entryID DESC`
 
 // Query to populate entry page
 const selectAllQuery = `SELECT * FROM travelEntries
     JOIN locations ON travelEntries.locationID = locations.locationID
-    JOIN categories ON travelEntries.categoryID = categories.categoryID
+    LEFT JOIN categories ON travelEntries.categoryID = categories.categoryID
     ORDER BY entryID ASC`
 
 // Query to populate the results page
@@ -97,6 +97,7 @@ exports.get_all_entries = async(req, res, context) => {
 
             mysql.pool.query(selectAllQuery, (err, rows, fields) => {
                 try {
+                    console.log(rows)
                     promiseResult.context.entryList = rows
                     resolve(promiseResult);
                 } catch (err) {
